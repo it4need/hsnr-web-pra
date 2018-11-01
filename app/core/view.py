@@ -7,8 +7,8 @@ from mako.lookup import TemplateLookup
 
 
 class View(object):
-    def __init__(self, path_spl):
-        self.lookup_o = TemplateLookup(directories=AppConfig.view_folder)
+    def __init__(self, view_search_folder):
+        self.lookup_o = TemplateLookup(directories=view_search_folder)
 
     def load(self, template, data_opl=None):
         return self.__render(template, data_opl)
