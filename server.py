@@ -1,8 +1,8 @@
 # coding: utf-8
 import cherrypy
 from app.config.app import AppConfig
-from app.config.routes import RoutesConfig
-
+from app.config.routes import RouterConfig
+from app.core.router import RouteDispatcher
 
 def main():
     cherrypy.engine.autoreload.unsubscribe()
@@ -12,7 +12,7 @@ def main():
             'tools.staticdir.root': AppConfig.root_dir,
             'tools.staticdir.on': True,
             'tools.staticdir.dir': './content',
-            'request.dispatch': RoutesConfig().getAllRoutes(),
+            'request.dispatch': RouteDispatcher().getAllRoutes(RouterConfig.routes),
         }
     }
 
