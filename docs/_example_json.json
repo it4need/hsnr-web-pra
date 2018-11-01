@@ -1,0 +1,28 @@
+{
+	"meta": {
+		"maxId": 9,
+		"columns": [
+			"id",
+			"customerId",
+			"description",
+			"contact",
+			"city"
+		]
+	},
+	"data": [
+		[
+			1,
+			"CUSTOMER-0001",
+			"Duplexmedia GmbH & Co. KG",
+			"Jan André Schlösser",
+			"Düsseldorf"
+		],
+		[
+			2,
+			"CUSTOMER-0002",
+			"Caritas",
+			"Hanno Siebel",
+			"Geldern"
+		]
+	]
+}
