@@ -1,16 +1,16 @@
 # coding: utf-8
 
 import os.path
-from .config import Config
+from app.config.app import AppConfig
 
-from mako.template import Template
 from mako.lookup import TemplateLookup
+
 
 class View(object):
     def __init__(self, path_spl):
-        self.lookup_o = TemplateLookup(directories=os.path.join(path_spl, Config.view_folder))
+        self.lookup_o = TemplateLookup(directories=AppConfig.view_folder)
 
-    def load(self, template, data_opl):
+    def load(self, template, data_opl=None):
         return self.__render(template, data_opl)
 
     def __render(self, template_spl, data_opl):
@@ -26,6 +26,6 @@ class View(object):
         return self.__render_template('partials/footer', data_opl)
 
     def __render_template(self, template_spl, data_opl):
-        template = self.lookup_o.get_template(template_spl + Config.view_extension)
-        rendered = template.render(data = data_opl)
+        template = self.lookup_o.get_template(template_spl + AppConfig.view_extension)
+        rendered = template.render(data=data_opl)
         return rendered

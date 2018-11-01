@@ -1,29 +1,24 @@
 # coding: utf-8
-import os
 import cherrypy
-from app import application
+from app.config.app import AppConfig
+from app.config.routes import RoutesConfig
+
 
 def main():
-    # Get current directory
-    try:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-    except:
-        current_dir = os.path.dirname(os.path.abspath(sys.executable))
-    # disable autoreload
     cherrypy.engine.autoreload.unsubscribe()
-    # Static content config
+
     static_config = {
         '/': {
-            'tools.staticdir.root': current_dir,
+            'tools.staticdir.root': AppConfig.root_dir,
             'tools.staticdir.on': True,
-            'tools.staticdir.dir': './content'
+            'tools.staticdir.dir': './content',
+            'request.dispatch': RoutesConfig().getAllRoutes(),
         }
     }
-    # Mount static content handler
-    root_o = cherrypy.tree.mount(application.Application(current_dir), '/', static_config)
-    # suppress traceback-info
+
+    cherrypy.tree.mount(root=None, config=static_config)
     cherrypy.config.update({'request.show_tracebacks': False})
-    # Start server
+
     cherrypy.engine.start()
     cherrypy.engine.block()
 
