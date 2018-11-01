@@ -8,13 +8,15 @@ from app.config.app import AppConfig
 
 
 class BaseModel:
-    def __init__(self):
+    def __init__(self, fileName, data_attributes):
         self.data = None
+        self.file_name = fileName
+        self.data_attributes = data_attributes
         self.__createDatabaseFolderIfNotExist()
         self.__read()
 
     def create(self, values=[]):
-        values.insert(0, self.__getMaxId())
+        values.insert(0, self.__getMaxId() + 1)
         self.data['data'].append(list(values))
         self.__save()
 
@@ -69,8 +71,8 @@ class BaseModel:
         openedFile = codecs.open(os.path.join(AppConfig.database_folder, self.file_name + AppConfig.database_extension),
                                  'w', 'utf-8')
         with openedFile:
-            json.dump(self.data, openedFile, indent=3)
             self.__setMaxId(maxId)
+            json.dump(self.data, openedFile, indent=3)
 
     def __getMaxId(self):
         return self.data['meta']['maxId']

@@ -2,7 +2,7 @@
 import os
 
 
-class AppConfig(object):
+class AppConfig:
     if os.name == 'nt':
         root_dir = os.path.dirname(os.path.abspath(__file__)) + '\\..\\..\\'
     else:
