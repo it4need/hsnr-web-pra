@@ -9,6 +9,7 @@ from app.config.app import AppConfig
 
 class BaseModel:
     def __init__(self, fileName, data_attributes):
+        data_attributes.insert(0, 'id')
         self.data = None
         self.file_name = fileName
         self.data_attributes = data_attributes
@@ -23,16 +24,12 @@ class BaseModel:
     def find(self, findId):
         for data in self.data['data']:
             if data[0] == findId:
-                columns = list(self.data_attributes)
-                columns.insert(0, 'id')
-                return dict(zip(columns, data))
+                return dict(zip(self.data_attributes, data))
 
     def all(self):
         all_data = list()
         for data in self.data['data']:
-            columns = list(self.data_attributes)
-            columns.insert(0, 'id')
-            all_data.append(dict(zip(columns, data)))
+            all_data.append(dict(zip(self.data_attributes, data)))
 
         return all_data
 
@@ -84,8 +81,6 @@ class BaseModel:
             self.data['meta']['maxId'] = maxId
 
     def __newJSONStructure(self):
-        self.data_attributes.insert(0, 'id')
-
         return {
             "meta": {
                 "maxId": 0,
