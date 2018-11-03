@@ -9,11 +9,15 @@ class EmployeeController(BaseController):
         BaseController.__init__(self)
 
     def index(self):
-        employee = Employee().find(2)
-        return self.view.load('employees/index', {'employees': employee})
+        employee = Employee().all()
+        return self.view.load('employees.index', {'employees': employee})
 
     def create(self):
-        return self.view.load('employees/create')
+        return self.view.load('employees.create')
 
-    def store(self,  **kwargs):
-        return "stored"
+    def store(self, **kwargs):
+        employee = Employee().create(kwargs)
+        if employee:
+            self.redirect('employee.index', {'successful': 'success'})
+        else:
+            return "not stored"

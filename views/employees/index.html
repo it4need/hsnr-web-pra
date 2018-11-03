@@ -1,3 +1,6 @@
+% for notification in data['_notifications']:
+    ${notification}
+% endfor
 <table>
     <thead>
     <th>ID</th>
@@ -14,4 +17,4 @@
         % endfor
     </tbody>
 </table>
-<a href="${data['routes']['employee.create']}">Neuen Employee erstellen</a>
+<a href="${data['_routes']['employee.create']}">Neuen Employee erstellen</a>
