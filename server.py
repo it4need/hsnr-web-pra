@@ -4,6 +4,7 @@ from app.config.app import AppConfig
 from app.config.routes import RouterConfig
 from app.core.router import RouteDispatcher
 
+
 def main():
     cherrypy.engine.autoreload.unsubscribe()
 

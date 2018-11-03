@@ -37,14 +37,24 @@ class BaseModel:
     def find(self, findId):
         for data in self.data['data']:
             if data[self.ID_INDEX] == findId:
-                return dict(zip(self.data_attributes, data))
+                data = dict(zip(self.data_attributes, data))
+
+                if hasattr(self.__class__, '_transformData') and callable(getattr(self.__class__, '_transformData')):
+                    employeelist = list()
+                    employeelist.append(data)
+                    return self._transformData(employeelist)
+                else:
+                    return data
 
     def all(self):
         all_data = list()
         for data in self.data['data']:
             all_data.append(dict(zip(self.data_attributes, data)))
 
-        return all_data
+        if hasattr(self.__class__, '_transformData') and callable(getattr(self.__class__, '_transformData')):
+            return self._transformData(all_data)
+        else:
+            return all_data
 
     def update(self, data_id, values):
         if 'id' in values:
