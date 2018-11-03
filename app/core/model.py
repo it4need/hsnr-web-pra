@@ -97,5 +97,5 @@ class BaseModel:
         }
 
     def __createDatabaseFolderIfNotExist(self):
-        if not os.path.exists(os.path.join(AppConfig.database_folder)):
-            os.makedirs(os.path.join(AppConfig.database_folder))
+        if not os.path.exists(AppConfig.database_folder):
+            os.makedirs(AppConfig.database_folder)

@@ -3,12 +3,8 @@ import os
 
 
 class AppConfig:
-    if os.name == 'nt':
-        root_dir = os.path.dirname(os.path.abspath(__file__)) + '\\..\\..\\'
-    else:
-        root_dir = os.path.dirname(os.path.abspath(__file__)) + '/../../'
-
-    view_folder = root_dir + 'views'
+    root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    view_folder = os.path.join(root_dir, "views")
     view_extension = '.html'
-    database_folder = root_dir + 'data'
+    database_folder = os.path.join(root_dir, "data")
     database_extension = '.json'
