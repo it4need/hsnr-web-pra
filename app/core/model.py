@@ -8,22 +8,35 @@ from app.config.app import AppConfig
 
 
 class BaseModel:
+    ID_INDEX = 0
+
     def __init__(self, fileName, data_attributes):
-        data_attributes.insert(0, 'id')
+        data_attributes.insert(self.ID_INDEX, 'id')
         self.data = None
         self.file_name = fileName
         self.data_attributes = data_attributes
         self.__createDatabaseFolderIfNotExist()
         self.__read()
 
-    def create(self, values=[]):
-        values.insert(0, self.__getMaxId() + 1)
-        self.data['data'].append(list(values))
+    def create(self, values):
+        new_values = []
+
+        if 'id' in values:
+            raise Exception("The ID increments automatically. Do not pass it as a value.")
+
+        for attribute in self.data_attributes:
+            if attribute in values:
+                new_values.append(values[attribute])
+            else:
+                new_values.append(None)
+
+        new_values[self.ID_INDEX] = self.__getMaxId() + 1
+        self.data['data'].append(list(new_values))
         self.__save()
 
     def find(self, findId):
         for data in self.data['data']:
-            if data[0] == findId:
+            if data[self.ID_INDEX] == findId:
                 return dict(zip(self.data_attributes, data))
 
     def all(self):
@@ -34,10 +47,16 @@ class BaseModel:
         return all_data
 
     def update(self, data_id, values):
+        if 'id' in values:
+            raise Exception("The ID increments automatically. Do not pass it as a value.")
+
         for key, data in enumerate(self.data['data']):
-            if data_id == data[0]:
-                values.insert(0, data_id)
-                self.data['data'][key] = values
+            if data_id == data[self.ID_INDEX]:
+                for attr_position, attribute in enumerate(self.data_attributes):
+                    if attribute in values:
+                        print(attribute)
+                        self.data['data'][key][attr_position] = values[attribute]
+
                 self.__save(self.__getMaxId())
                 return True
 
@@ -45,7 +64,7 @@ class BaseModel:
 
     def delete(self, data_id):
         for key, data in enumerate(self.data['data']):
-            if data_id == data[0]:
+            if data_id == data[self.ID_INDEX]:
                 del self.data['data'][key]
                 self.__save(self.__getMaxId())
                 return True

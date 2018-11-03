@@ -8,4 +8,3 @@ class Employee(BaseModel):
         file_name = 'employee'
         data_attributes = ['last_name', 'first_name', 'position']
         BaseModel.__init__(self, file_name, data_attributes)
-        print(self.data)
