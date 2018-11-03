@@ -32,6 +32,7 @@ class View(object):
         return self.__render_template('partials.footer', data_opl)
 
     def __render_template(self, template_spl, data_opl):
+        template_spl = template_spl.replace('.', '/')
         template = self.lookup_o.get_template(template_spl + AppConfig.view_extension)
         rendered = template.render(data=data_opl)
         return rendered
