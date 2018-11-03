@@ -2,7 +2,7 @@
 
 import os.path
 from app.config.app import AppConfig
-
+from app.config.routes import RouterConfig
 from mako.lookup import TemplateLookup
 
 
@@ -10,7 +10,8 @@ class View(object):
     def __init__(self, view_search_folder):
         self.lookup_o = TemplateLookup(directories=view_search_folder)
 
-    def load(self, template, data_opl=None):
+    def load(self, template, data_opl={}):
+        data_opl['routes'] = RouterConfig.getAllRoutes()
         return self.__render(template, data_opl)
 
     def __render(self, template_spl, data_opl):

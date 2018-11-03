@@ -6,7 +6,6 @@ from importlib import import_module
 class RouteDispatcher:
     def getAllRoutes(self, routerConfig):
         dispatcher = cherrypy.dispatch.RoutesDispatcher()
-
         for route in routerConfig:
 
             if 'condition' in route:

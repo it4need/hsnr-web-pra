@@ -1,7 +1,4 @@
 # coding: utf-8
-import cherrypy
-from app.controllers.HomeController import HomeController
-
 
 class RouterConfig:
     routes = [
@@ -11,3 +8,11 @@ class RouterConfig:
         }
     ]
 
+    @staticmethod
+    def getAllRoutes():
+        allRoutes = {}
+        for routes in RouterConfig.routes:
+            if 'name' in routes:
+                allRoutes[routes['name']] = routes['route']
+
+        return allRoutes
