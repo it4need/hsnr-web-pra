@@ -32,7 +32,11 @@ class BaseModel:
 
         new_values[self.ID_INDEX] = self.__getMaxId() + 1
         self.data['data'].append(list(new_values))
-        self.__save()
+
+        if self.__save():
+            return self.__getMaxId()
+        else:
+            return False
 
     def find(self, findId):
         for data in self.data['data']:
@@ -45,6 +49,16 @@ class BaseModel:
                     return self._transformData(employeelist)
                 else:
                     return data
+
+        return False
+
+    def findOrFail(self, findId):
+        entry = self.find(findId)
+
+        if entry is False:
+            raise Exception("The entry with ID " + str(findId) + " was not found on model: " + str(self.__class__))
+
+        return entry
 
     def all(self):
         all_data = list()
@@ -99,6 +113,9 @@ class BaseModel:
         with openedFile:
             self.__setMaxId(maxId)
             json.dump(self.data, openedFile, indent=3)
+            return True
+
+        return False
 
     def __getMaxId(self):
         return self.data['meta']['maxId']
