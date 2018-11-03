@@ -5,6 +5,21 @@ class RouterConfig:
         {
             'route': '/',
             'method': 'HomeController@index',
+        },
+        {
+            'route': '/employees',
+            'method': 'EmployeeController@index',
+        },
+        {
+            'name': 'employee.create',
+            'route': '/employees/create',
+            'method': 'EmployeeController@create',
+        },
+        {
+            'name': 'employee.store',
+            'route': '/employees/store',
+            'method': 'EmployeeController@store',
+            'condition': {'method': ['POST']}
         }
     ]
 

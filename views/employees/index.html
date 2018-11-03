@@ -1,0 +1,17 @@
+<table>
+    <thead>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Funktion</th>
+    </thead>
+    <tbody>
+        % for employee in data['employees']:
+            <tr>
+                <td>${employee['id']}</td>
+                <td>${employee['name']}</td>
+                <td>${employee['position']}</td>
+            </tr>
+        % endfor
+    </tbody>
+</table>
+<a href="${data['routes']['employee.create']}">Neuen Employee erstellen</a>
