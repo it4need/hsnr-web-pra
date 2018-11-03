@@ -8,6 +8,7 @@ class RouteDispatcher:
         dispatcher = cherrypy.dispatch.RoutesDispatcher()
 
         for route in routerConfig:
+
             if 'condition' in route:
                 routeConditions = route['condition']
             else:
@@ -16,7 +17,7 @@ class RouteDispatcher:
             if 'name' in route:
                 routeName = route['name']
             else:
-                routeName = None
+                routeName = route['route'].strip('/').replace('/', '.')
 
             routeController, routeMethod = route['method'].split('@')
 
