@@ -13,7 +13,7 @@ class BaseController(object):
 
     def redirect(self, toUrl, sessionData = {}):
         if toUrl in RouterConfig.getAllRoutes():
-            for key, data in enumerate(sessionData):
+            for key, data in sessionData.items():
                 cherrypy.session['notifications_' + str(key)] = data
             raise cherrypy.HTTPRedirect(RouterConfig.getAllRoutes()[toUrl])
         else:
