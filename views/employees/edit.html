@@ -1,6 +1,6 @@
 <%namespace name="utilities" file="../utilities.html"/>
 
-<form action="${utilities.route(data['_routes']['employee.update'], {'id': data['_old']['id']})}" method="post">
+<form action="${utilities.route(data['_routes']['employees.update'], {'id': data['_old']['id']})}" method="post">
     <label for="first_name">Vorname</label>
     <input type="text" name="first_name" id="first_name" value="${data['_old']['first_name']}">
     <label for="last_name">Nachname</label>

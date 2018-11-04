@@ -7,35 +7,35 @@ class RouterConfig:
             'method': 'HomeController@index',
         },
         {
-            'name': 'employee.index',
+            'name': 'employees.index',
             'route': '/employees',
             'method': 'EmployeeController@index',
         },
         {
-            'name': 'employee.create',
+            'name': 'employees.create',
             'route': '/employees/create',
             'method': 'EmployeeController@create',
         },
         {
-            'name': 'employee.store',
+            'name': 'employees.store',
             'route': '/employees/store',
             'method': 'EmployeeController@store',
             'condition': {'method': ['POST']}
         },
         {
-            'name': 'employee.show',
+            'name': 'employees.show',
             'route': '/employees/:id',
             'method': 'EmployeeController@show'
         },
         {
-            'name': 'employee.update',
+            'name': 'employees.update',
             'route': '/employees/:id',
             'method': 'EmployeeController@update',
             'condition': {'method': ['POST']}
         },
         {
-            'name': 'employee.delete',
-            'route': '/employees/delete/:id',
+            'name': 'employees.delete',
+            'route': '/employees/:id/delete',
             'method': 'EmployeeController@delete',
             'condition': {'method': ['POST']}
         },

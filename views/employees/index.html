@@ -14,8 +14,8 @@
                 <td>${employee['name']}</td>
                 <td>${employee['position']}</td>
                 <td>
-                    <a href="${utilities.route(data['_routes']['employee.show'], {'id': employee['id']})}">Bearbeiten</a>
-                    <form action="${utilities.route(data['_routes']['employee.delete'], {'id': employee['id']})}" method="post">
+                    <a href="${utilities.route(data['_routes']['employees.show'], {'id': employee['id']})}">Bearbeiten</a>
+                    <form action="${utilities.route(data['_routes']['employees.delete'], {'id': employee['id']})}" method="post">
                         <input type="submit" value="Löschen" class="btn-link">
                     </form>
                 </td>
@@ -23,4 +23,4 @@
         % endfor
     </tbody>
 </table>
-<a href="${data['_routes']['employee.create']}">Neuen Mitarbeiter erstellen</a>
+<a href="${data['_routes']['employees.create']}">Neuen Mitarbeiter erstellen</a>
