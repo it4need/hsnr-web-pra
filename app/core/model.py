@@ -42,13 +42,13 @@ class BaseModel:
         for data in self.data['data']:
             if data[self.ID_INDEX] == int(findId):
                 data = dict(zip(self.data_attributes, data))
+                employeelist = list()
+                employeelist.append(data)
 
                 if hasattr(self.__class__, '_transformData') and callable(getattr(self.__class__, '_transformData')):
-                    employeelist = list()
-                    employeelist.append(data)
                     return self._transformData(employeelist)
                 else:
-                    return data
+                    return employeelist
 
         return False
 
