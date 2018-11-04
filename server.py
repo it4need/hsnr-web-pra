@@ -14,12 +14,16 @@ def main():
             'tools.staticdir.on': True,
             'tools.staticdir.dir': './content',
             'tools.sessions.on': True,
+            'request.show_tracebacks': True,
             'request.dispatch': RouteDispatcher().getAllRoutes(RouterConfig.routes),
         }
     }
 
     cherrypy.tree.mount(root=None, config=static_config)
-    cherrypy.config.update({'request.show_tracebacks': False})
+
+    if AppConfig.mode != 'development':
+        cherrypy.config.update({'request.show_tracebacks': False})
+
     cherrypy.engine.start()
     cherrypy.engine.block()
 

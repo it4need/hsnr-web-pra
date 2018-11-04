@@ -8,3 +8,4 @@ class AppConfig:
     view_extension = '.html'
     database_folder = os.path.join(root_dir, "data")
     database_extension = '.json'
+    mode = 'development'
