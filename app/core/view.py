@@ -43,10 +43,12 @@ class View(object):
                 cherrypy.session.pop(session_value[0])
 
     def __getNotificationSessions(self):
-        sessionData = []
+        sessionData = {}
 
         for session_key, session_value in enumerate(cherrypy.session.items()):
             if session_value[0].startswith('notifications_'):
-                sessionData.append(session_value[1])
+                notification_type = session_value[0].replace('notifications_', '')
+                notification_message = session_value[1]
+                sessionData[notification_type] = notification_message
 
         return sessionData
