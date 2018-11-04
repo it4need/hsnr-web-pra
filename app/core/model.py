@@ -40,7 +40,7 @@ class BaseModel:
 
     def find(self, findId):
         for data in self.data['data']:
-            if data[self.ID_INDEX] == findId:
+            if data[self.ID_INDEX] == int(findId):
                 data = dict(zip(self.data_attributes, data))
 
                 if hasattr(self.__class__, '_transformData') and callable(getattr(self.__class__, '_transformData')):
@@ -75,10 +75,9 @@ class BaseModel:
             raise Exception("The ID increments automatically. Do not pass it as a value.")
 
         for key, data in enumerate(self.data['data']):
-            if data_id == data[self.ID_INDEX]:
+            if int(data_id) == data[self.ID_INDEX]:
                 for attr_position, attribute in enumerate(self.data_attributes):
                     if attribute in values:
-                        print(attribute)
                         self.data['data'][key][attr_position] = values[attribute]
 
                 self.__save(self.__getMaxId())
@@ -88,7 +87,7 @@ class BaseModel:
 
     def delete(self, data_id):
         for key, data in enumerate(self.data['data']):
-            if data_id == data[self.ID_INDEX]:
+            if int(data_id) == data[self.ID_INDEX]:
                 del self.data['data'][key]
                 self.__save(self.__getMaxId())
                 return True
