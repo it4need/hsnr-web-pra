@@ -26,10 +26,10 @@ class View(object):
         return header + content + footer
 
     def __render_header(self, data_opl):
-        return self.__render_template('partials.header', data_opl)
+        return self.__render_template('_partials.header', data_opl)
 
     def __render_footer(self, data_opl):
-        return self.__render_template('partials.footer', data_opl)
+        return self.__render_template('_partials.footer', data_opl)
 
     def __render_template(self, template_spl, data_opl):
         template_spl = template_spl.replace('.', '/')

@@ -3,10 +3,13 @@
 		"maxId": 9,
 		"columns": [
 			"id",
-			"customerId",
+			"project_id",
+			"label",
 			"description",
-			"contact",
-			"city"
+			"start_date",
+			"end_date",
+			"budget",
+			"customer_id"
 		]
 	},
 	"data": [
