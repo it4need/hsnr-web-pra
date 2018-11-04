@@ -1,0 +1,27 @@
+<%namespace name="utilities" file="../utilities.html"/>
+
+<form action="${utilities.route(data['_routes']['projects.update'], {'id': data['_old']['id']})}" method="post">
+    <label for="project_id">Nummer</label>
+    <input type="text" name="project_id" id="project_id" value="${data['_old']['project_id']}" required>
+    <label for="label">Bezeichnung</label>
+    <input type="text" name="label" id="label" value="${data['_old']['label']}" required>
+    <label for="description">Beschreibung</label>
+    <input type="text" name="description" id="description" value="${data['_old']['description']}">
+    <label for="start_date">Start-Datum</label>
+    <input type="date" name="start_date" id="start_date" value="${data['_old']['start_date']}">
+    <label for="start_date">End-Datum</label>
+    <input type="date" name="end_date" id="end_date" value="${data['_old']['end_date']}">
+    <label for="budget">Budget</label>
+    <input type="number" name="budget" id="budget" value="${data['_old']['budget']}">
+    <label for="customer_id">Kundennummer</label>
+    <select name="customer_id" id="customer_id">
+        % for customer in data['allCustomers']:
+            % if customer['id'] == data['_old']['id']:
+                <option selected value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
+            % else:
+                <option value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
+            % endif
+        %endfor
+    </select>
+    <input type="submit" value="Absenden">
+</form>

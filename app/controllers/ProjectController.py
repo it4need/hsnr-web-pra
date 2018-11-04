@@ -2,7 +2,10 @@
 
 from app.core.controller import BaseController
 from app.models.Project import Project
+from app.models.ProjectEmployee import ProjectEmployee
 from app.models.ProjectTime import ProjectTime
+from app.models.Customer import Customer
+
 
 class ProjectController(BaseController):
     def __init__(self):
@@ -10,34 +13,63 @@ class ProjectController(BaseController):
 
     def index(self):
         projects = Project().all()
-        project_time = ProjectTime().all()
         return self.view.load('projects.index', {'projects': projects})
 
     def create(self):
-        return self.view.load('customers.create')
+        allCustomers = Customer().all()
+
+        if len(allCustomers) < 1:
+            self.redirect('projects.index', {'danger': 'Projekte können erst erstellt werden, wenn bereits Kunden vorhnaden sind.'})
+
+        return self.view.load('projects.create', {'allCustomers': allCustomers})
 
     def store(self, **kwargs):
-        customer = Customer().create(kwargs)
+        customer = Project().create(self.__convertArgumentsToCorrectDatatype(kwargs))
+
         if customer:
-            self.redirect('customers.index', {'success': 'Der Kunde wurde erfolgreich eingetragen.'})
+            self.redirect('projects.index', {'success': 'Der Projet wurde erfolgreich eingetragen.'})
         else:
-            self.redirect('customers.store', {'danger': 'Leider konnte der Kunde nicht erfolgreich angelegt werden.'})
+            self.redirect('projects.store', {'danger': 'Leider konnte das Projekt nicht erfolgreich angelegt werden.'})
 
     def show(self, id):
-        customer = Customer().findOrFail(id)
-        print(customer)
-        return self.view.load('customers.edit', {'_old': customer[0]})
+        project = Project().findOrFail(id)
+        allCustomers = Customer().all()
+
+        return self.view.load('projects.edit', {'_old': project[0], 'allCustomers': allCustomers})
 
     def update(self, id, **kwargs):
-        customer = Customer().update(id, kwargs)
-        if customer:
-            self.redirect('customers.index', {'success': 'Der Kunde mit der ID ' + id + ' wurde erfolgreich geändert.'})
+        project = Project().update(id, self.__convertArgumentsToCorrectDatatype(kwargs))
+
+        if project:
+            self.redirect('projects.index',
+                          {'success': 'Das Projekt mit der ID ' + id + ' wurde erfolgreich geändert.'})
         else:
-            self.redirect('customers.index', {'danger': 'Der Kunde konnte nicht geändert werden.'})
+            self.redirect('projects.index', {'danger': 'Das Projekt konnte nicht geändert werden.'})
 
     def delete(self, id):
-        customer = Customer().delete(id)
-        if customer:
-            self.redirect('customers.index', {'success': 'Der Kunde mit der ID ' + id + ' wurde erfolgreich gelöscht.'})
+        allProjectEmployees = ProjectEmployee().all({'project_id': int(id)})
+        allProjectTime = ProjectTime().all({'project_id': int(id)})
+
+        for time in allProjectTime:
+            ProjectTime().delete(time['id'])
+
+        for employee in allProjectEmployees:
+            ProjectEmployee().delete(employee['id'])
+
+        project = Project().delete(id)
+        if project:
+            self.redirect('projects.index', {
+                'success': 'Das Projekt mit der ID ' + id + ' wurde mit allen zugehörigen Einträgen erfolgreich gelöscht.'})
         else:
-            self.redirect('customers.index', {'danger': 'Der Kunde konnte nicht gelöscht werden.'})
+            self.redirect('projects.index', {'danger': 'Das Projekt konnte nicht gelöscht werden.'})
+
+    def __convertArgumentsToCorrectDatatype(self, args):
+        return {
+            'project_id': args['project_id'],
+            'label': args['label'],
+            'description': args['description'],
+            'start_date': args['start_date'],
+            'end_date': args['end_date'],
+            'budget': float(args['budget']),
+            'customer_id': int(args['customer_id']),
+        }

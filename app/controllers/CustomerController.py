@@ -2,6 +2,7 @@
 
 from app.core.controller import BaseController
 from app.models.Customer import Customer
+from app.models.Project import Project
 
 
 class CustomerController(BaseController):
@@ -35,6 +36,12 @@ class CustomerController(BaseController):
             self.redirect('customers.index', {'danger': 'Der Kunde konnte nicht geändert werden.'})
 
     def delete(self, id):
+        allProjects = Project().all({'customer_id': int(id)})
+
+        if len(allProjects) > 0:
+            self.redirect('customers.index', {
+                'danger': 'Bevor der Kunde mit der ID ' + id + ' gelöscht werden darf, müssen alle Projekte entfernt werden.'})
+
         customer = Customer().delete(id)
         if customer:
             self.redirect('customers.index', {'success': 'Der Kunde mit der ID ' + id + ' wurde erfolgreich gelöscht.'})

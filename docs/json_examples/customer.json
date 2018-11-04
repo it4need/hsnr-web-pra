@@ -1,0 +1,23 @@
+{
+   "meta": {
+      "maxId": 1,
+      "columns": [
+         [
+            "id",
+            "customer_id",
+            "label",
+            "contact",
+            "city"
+         ]
+      ]
+   },
+   "data": [
+      [
+         1,
+         "2",
+         "Hanno Siebel GmbH",
+         "2",
+         "2"
+      ]
+   ]
+}
