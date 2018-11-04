@@ -39,6 +39,39 @@ class RouterConfig:
             'method': 'EmployeeController@delete',
             'condition': {'method': ['POST']}
         },
+        {
+            'name': 'customers.index',
+            'route': '/customers',
+            'method': 'CustomerController@index',
+        },
+        {
+            'name': 'customers.create',
+            'route': '/customers/create',
+            'method': 'CustomerController@create',
+        },
+        {
+            'name': 'customers.store',
+            'route': '/customers/store',
+            'method': 'CustomerController@store',
+            'condition': {'method': ['POST']}
+        },
+        {
+            'name': 'customers.show',
+            'route': '/customers/:id',
+            'method': 'CustomerController@show'
+        },
+        {
+            'name': 'customers.update',
+            'route': '/customers/:id',
+            'method': 'CustomerController@update',
+            'condition': {'method': ['POST']}
+        },
+        {
+            'name': 'customers.delete',
+            'route': '/customers/:id/delete',
+            'method': 'CustomerController@delete',
+            'condition': {'method': ['POST']}
+        },
     ]
 
     @staticmethod

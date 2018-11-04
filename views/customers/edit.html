@@ -1,0 +1,13 @@
+<%namespace name="utilities" file="../utilities.html"/>
+
+<form action="${utilities.route(data['_routes']['customers.update'], {'id': data['_old']['id']})}" method="post">
+    <label for="customer_id">Nummer</label>
+    <input type="text" name="customer_id" id="customer_id" value="${data['_old']['customer_id']}" required>
+    <label for="last_name">Bezeichnung</label>
+    <input type="text" name="description" id="description" value="${data['_old']['description']}" required>
+    <label for="position">Ansprechpartner</label>
+    <input type="text" name="contact" id="contact" value="${data['_old']['contact']}">
+    <label for="position">Ort</label>
+    <input type="text" name="city" id="city" value="${data['_old']['city']}">
+    <input type="submit" value="Absenden">
+</form>
