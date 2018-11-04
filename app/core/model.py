@@ -11,6 +11,9 @@ class BaseModel:
     ID_INDEX = 0
 
     def __init__(self, fileName, data_attributes):
+        if 'id' in data_attributes:
+            raise Exception("ID is not allowed in data_attributes")
+
         data_attributes.insert(self.ID_INDEX, 'id')
         self.data = None
         self.file_name = fileName
