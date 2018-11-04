@@ -10,3 +10,25 @@ html {
 
 body {
   box-sizing: border-box; }
+
+.alert {
+  padding: 1rem 0.5rem;
+  border-radius: .3rem;
+  font-size: 1.6rem;
+  font-weight: 500; }
+  .alert--success {
+    background-color: #1aff1a;
+    border: 1px solid #00b300;
+    color: #001a00; }
+  .alert--danger {
+    background-color: #ff9999;
+    border: 1px solid #ff3333;
+    color: #990000; }
+  .alert--warning {
+    background-color: #ffff98;
+    border: 1px solid #ffff32;
+    color: #989800; }
+  .alert--info {
+    background-color: #9999ff;
+    border: 1px solid #3333ff;
+    color: #000099; }

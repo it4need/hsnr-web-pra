@@ -8,7 +8,7 @@ from mako.lookup import TemplateLookup
 
 class View(object):
     def __init__(self, view_search_folder):
-        self.lookup_o = TemplateLookup(directories=view_search_folder)
+        self.lookup_o = TemplateLookup(directories=view_search_folder, input_encoding='utf-8')
 
     def load(self, template, data_opl={}):
         data_opl['_routes'] = RouterConfig.getAllRoutes()
