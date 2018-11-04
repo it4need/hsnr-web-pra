@@ -9,8 +9,8 @@ class EmployeeController(BaseController):
         BaseController.__init__(self)
 
     def index(self):
-        employee = Employee().all()
-        return self.view.load('employees.index', {'employees': employee})
+        employees = Employee().all()
+        return self.view.load('employees.index', {'employees': employees})
 
     def create(self):
         return self.view.load('employees.create')
@@ -18,6 +18,24 @@ class EmployeeController(BaseController):
     def store(self, **kwargs):
         employee = Employee().create(kwargs)
         if employee:
-            self.redirect('employee.index', {'successful': 'success'})
+            self.redirect('employee.index', {'success': 'Der Mitarbeiter wurde erfolgreich eingetragen.'})
         else:
-            return "not stored"
+            self.redirect('employee.store', {'danger': 'Leider konnte der Mittarbeiter nicht erfolgreich angelegt werden.'})
+
+    def show(self, id):
+        employee = Employee().findOrFail(id)
+        return self.view.load('employees.edit', {'_old': employee[0]})
+
+    def update(self, id, **kwargs):
+        employee = Employee().update(id, kwargs)
+        if employee:
+            self.redirect('employee.index', {'success': 'Der Mitarbeiter mit der ID ' + id + ' wurde erfolgreich geändert.'})
+        else:
+            self.redirect('employee.index', {'danger': 'Der Mitarbeiter konnte nicht geändert werden.'})
+
+    def delete(self, id):
+        employee = Employee().delete(id)
+        if employee:
+            self.redirect('employee.index', {'success': 'Der Mitarbeiter mit der ID ' + id + ' wurde erfolgreich gelöscht.'})
+        else:
+            self.redirect('employee.index', {'danger': 'Der Mitarbeiter konnte nicht gelöscht werden.'})

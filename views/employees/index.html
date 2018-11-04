@@ -1,11 +1,11 @@
-% for notification in data['_notifications']:
-    ${notification}
-% endfor
+<%namespace name="utilities" file="../utilities.html"/>
+
 <table>
     <thead>
     <th>ID</th>
     <th>Name</th>
     <th>Funktion</th>
+    <th>Aktionen</th>
     </thead>
     <tbody>
         % for employee in data['employees']:
@@ -13,8 +13,14 @@
                 <td>${employee['id']}</td>
                 <td>${employee['name']}</td>
                 <td>${employee['position']}</td>
+                <td>
+                    <a href="${utilities.route(data['_routes']['employee.show'], {'id': employee['id']})}">Bearbeiten</a>
+                    <form action="${utilities.route(data['_routes']['employee.delete'], {'id': employee['id']})}" method="post">
+                        <input type="submit" value="Löschen" class="btn-link">
+                    </form>
+                </td>
             </tr>
         % endfor
     </tbody>
 </table>
-<a href="${data['_routes']['employee.create']}">Neuen Employee erstellen</a>
+<a href="${data['_routes']['employee.create']}">Neuen Mitarbeiter erstellen</a>

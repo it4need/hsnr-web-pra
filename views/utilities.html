@@ -1,0 +1,8 @@
+<%def name="route(route, params={})"><%
+final_route = route
+
+for key, value in params.items():
+    final_route = final_route.replace(':' + str(key), str(value))
+
+return final_route
+%></%def>
