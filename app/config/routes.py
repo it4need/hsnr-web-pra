@@ -72,6 +72,39 @@ class RouterConfig:
             'method': 'CustomerController@delete',
             'condition': {'method': ['POST']}
         },
+        {
+            'name': 'projects.index',
+            'route': '/projects',
+            'method': 'ProjectController@index',
+        },
+        {
+            'name': 'projects.create',
+            'route': '/projects/create',
+            'method': 'ProjectController@create',
+        },
+        {
+            'name': 'projects.store',
+            'route': '/projects/store',
+            'method': 'ProjectController@store',
+            'condition': {'method': ['POST']}
+        },
+        {
+            'name': 'projects.show',
+            'route': '/projects/:id',
+            'method': 'ProjectController@show'
+        },
+        {
+            'name': 'projects.update',
+            'route': '/projects/:id',
+            'method': 'ProjectController@update',
+            'condition': {'method': ['POST']}
+        },
+        {
+            'name': 'projects.delete',
+            'route': '/projects/:id/delete',
+            'method': 'ProjectController@delete',
+            'condition': {'method': ['POST']}
+        },
     ]
 
     @staticmethod
