@@ -63,10 +63,28 @@ class BaseModel:
 
         return entry
 
-    def all(self):
+    def all(self, where = None):
         all_data = list()
+
         for data in self.data['data']:
             all_data.append(dict(zip(self.data_attributes, data)))
+
+        if where is not None:
+            reducedSet = list()
+
+            for data in all_data:
+                count = len(where)
+
+                for condition_key, condition in where.items():
+                    if data[condition_key] == condition:
+                        count = count - 1
+                    else:
+                        break
+
+                if count == 0:
+                    reducedSet.append(data)
+
+            all_data = reducedSet
 
         if hasattr(self.__class__, '_transformData') and callable(getattr(self.__class__, '_transformData')):
             return self._transformData(all_data)
