@@ -4,6 +4,7 @@
   width: 100%;
   font-size: 1.3rem;
   border-collapse: collapse;
+  overflow: auto;
 
   td, tr, th {
     padding: .5rem;
@@ -24,6 +25,7 @@
 
   .actions {
     text-align: right;
+    min-width: 120px;
   }
 
 }

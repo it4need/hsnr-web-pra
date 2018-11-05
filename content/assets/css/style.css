@@ -34,6 +34,9 @@ body {
 .inline-block {
   display: inline-block; }
 
+.overflow-container {
+  overflow: auto; }
+
 body {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
@@ -72,7 +75,8 @@ p {
   margin-bottom: 2rem;
   width: 100%;
   font-size: 1.3rem;
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  overflow: auto; }
   .table td, .table tr, .table th {
     padding: .5rem;
     text-align: left; }
@@ -83,12 +87,14 @@ p {
   .table tr:not(:last-child) {
     border-bottom: 1px solid #eee; }
   .table .actions {
-    text-align: right; }
+    text-align: right;
+    min-width: 120px; }
 
 .box {
   background-color: #fff;
   border: 1px solid #c4c4c4;
-  border-radius: .4rem; }
+  border-radius: .4rem;
+  overflow: hidden; }
   .box__header {
     width: 100%;
     padding: 1.2rem 2rem 1.2rem 2rem;

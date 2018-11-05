@@ -10,34 +10,36 @@
         </div>
         <div class="box__content">
             %if len(data['employees']) > 0:
-                <table class="table">
-                    <thead>
-                    <thead>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Funktion</th>
-                    <th class="actions"></th>
-                    </thead>
-                    <tbody>
-                        % for employee in data['employees']:
-                            <tr>
-                                <td>${employee['id']}</td>
-                                <td>${employee['name']}</td>
-                                <td>${employee['position']}</td>
-                                <td class="actions">
-                                    <a href="${utilities.route(data['_routes']['employees.show'], {'id': employee['id']})}"
-                                       class="btn btn--small"><i class="fas fa-edit inline"></i></a>
-                                    <form class="inline-block"
-                                          action="${utilities.route(data['_routes']['employees.delete'], {'id': employee['id']})}"
-                                          method="post">
-                                        <button type="submit" class="btn btn--danger btn--small"><i
-                                                class="fas fa-trash-alt inline"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        % endfor
-                    </tbody>
-                </table>
+                <div class="overflow-container">
+                    <table class="table">
+                        <thead>
+                        <thead>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Funktion</th>
+                        <th class="actions"></th>
+                        </thead>
+                        <tbody>
+                            % for employee in data['employees']:
+                                <tr>
+                                    <td>${employee['id']}</td>
+                                    <td>${employee['name']}</td>
+                                    <td>${employee['position']}</td>
+                                    <td class="actions">
+                                        <a href="${utilities.route(data['_routes']['employees.show'], {'id': employee['id']})}"
+                                           class="btn btn--small"><i class="fas fa-edit inline"></i></a>
+                                        <form class="inline-block"
+                                              action="${utilities.route(data['_routes']['employees.delete'], {'id': employee['id']})}"
+                                              method="post">
+                                            <button type="submit" class="btn btn--danger btn--small"><i
+                                                    class="fas fa-trash-alt inline"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            % endfor
+                        </tbody>
+                    </table>
+                </div>
             %else:
                 <p>Aktuell sind noch keine Mitarbeiter vorhanden.</p>
             %endif

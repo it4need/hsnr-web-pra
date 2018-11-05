@@ -1,21 +1,31 @@
-<form action="${data['_routes']['projects.store']}" method="post">
-    <label for="project_id">Nummer</label>
-    <input type="text" name="project_id" id="project_id"" required>
-    <label for="label">Bezeichnung</label>
-    <input type="text" name="label" id="label" required>
-    <label for="description">Beschreibung</label>
-    <input type="text" name="description" id="description">
-    <label for="start_date">Start-Datum</label>
-    <input type="date" name="start_date" id="start_date">
-    <label for="start_date">End-Datum</label>
-    <input type="date" name="end_date" id="end_date">
-    <label for="budget">Budget</label>
-    <input type="number" name="budget" id="budget">
-    <label for="customer_id">Kunde</label>
-    <select name="customer_id" id="customer_id">
-        % for customer in data['allCustomers']:
-            <option value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
-        %endfor
-    </select>
-    <input type="submit" value="Absenden">
-</form>
+<%namespace name="utilities" file="../utilities.html"/>
+<div class="row">
+    <div class="box">
+        <div class="box__header">
+            <h5 class="box__title">Neues Projekt erstellen</h5>
+        </div>
+        <div class="box__content">
+            <form action="${data['_routes']['projects.store']}" method="post">
+                <label for="project_id">Nummer</label>
+                <input type="text" name="project_id" id="project_id"" required>
+                <label for="label">Bezeichnung</label>
+                <input type="text" name="label" id="label" required>
+                <label for="description">Beschreibung</label>
+                <input type="text" name="description" id="description">
+                <label for="start_date">Start-Datum</label>
+                <input type="date" name="start_date" id="start_date">
+                <label for="start_date">End-Datum</label>
+                <input type="date" name="end_date" id="end_date">
+                <label for="budget">Budget</label>
+                <input type="number" name="budget" id="budget">
+                <label for="customer_id">Kunde</label>
+                <select name="customer_id" id="customer_id">
+                    % for customer in data['allCustomers']:
+                        <option value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
+                    %endfor
+                </select>
+                <input type="submit" value="Absenden">
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,141 +1,182 @@
 <%namespace name="utilities" file="../utilities.html"/>
-
-<form action="${utilities.route(data['_routes']['projects.update'], {'id': data['_old']['id']})}" method="post">
-    <label for="project_id">Nummer</label>
-    <input type="text" name="project_id" id="project_id" value="${data['_old']['project_id']}" required>
-    <label for="label">Bezeichnung</label>
-    <input type="text" name="label" id="label" value="${data['_old']['label']}" required>
-    <label for="description">Beschreibung</label>
-    <input type="text" name="description" id="description" value="${data['_old']['description']}">
-    <label for="start_date">Start-Datum</label>
-    <input type="date" name="start_date" id="start_date" value="${data['_old']['start_date']}">
-    <label for="start_date">End-Datum</label>
-    <input type="date" name="end_date" id="end_date" value="${data['_old']['end_date']}">
-    <label for="budget">Budget</label>
-    <input type="number" name="budget" id="budget" value="${data['_old']['budget']}">
-    <label for="customer_id">Kunde</label>
-    <select name="customer_id" id="customer_id">
-        % for customer in data['allCustomers']:
-            % if customer['id'] == data['_old']['id']:
-                <option selected value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
+<div class="row">
+    <div class="box">
+        <div class="box__header">
+            <h5 class="box__title">Wöchentlicher Aufwand: ${data['_old']['label']} - ${data['_old']['project_id']}</h5>
+        </div>
+        <div class="box__content">
+            % if len(data['timeList']) > 0:
+                <div class="overflow-container">
+                    <table class="table">
+                        <thead>
+                        <th></th>
+                        <th>Jahr</th>
+                            % for i in range(1, 54):
+                                <th>${i}</th>
+                            %endfor
+                        </thead>
+                        <tbody>
+                            % for employee_id, timeData in data['timeList'].items():
+                                % for year, yearsData in timeData.items():
+                                    <tr>
+                                        <td>
+                                            %for employees in data['allEmployees']:
+                                    %if employees['id'] == employee_id:
+                                                                                                                           ${employees['name']}
+                                            %endif
+                                            %endfor
+                                        </td>
+                                        <td>${year}</td>
+                                        % for week, weekSum in yearsData.items():
+                                            <td>${weekSum}</td>
+                                        % endfor
+                                    </tr>
+                                % endfor
+                            % endfor
+                        </tbody>
+                    </table>
+                </div>
             % else:
-                <option value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
+                <p>Es sind aktuell noch keine Zeiteinträge vorhanden.</p>
             % endif
-        %endfor
-    </select>
-    <input type="submit" value="Absenden">
-</form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="box">
+        <div class="box__header">
+            <h5 class="box__title">Wöchentlichen Aufwand hinzufügen: ${data['_old']['label']}
+                - ${data['_old']['project_id']}</h5>
+        </div>
+        <div class="box__content">
+            % if len(data['allEmployees']) > 0:
+                <form action="${utilities.route(data['_routes']['projecttimes.store'], {'id': data['_old']['id']})}"
+                      method="post">
+                    <label for="employee_id">Mitarbeiter</label>
+                    <select name="employee_id" id="employee_id" required>
+                        % for employee in data['allEmployees']:
+                            <option value="${employee['id']}">${employee['name']} - ${employee['id']}</option>
+                        %endfor
+                    </select>
+                    <label for="week">Woche</label>
+                    <select name="week" id="week" required>
+                        % for week in range(1, 54):
+                            <option value="${week}">${week}</option>
+                        % endfor
+                    </select>
+                    <label for="year">Jahr</label>
+                    <input type="number" required name="year" id="year" min="2018" max="2050">
+                    <label for="hours_per_week">Stunden</label>
+                    <input type="number" required name="hours_per_week" id="hours_per_week" min="1" max="168">
+                    <input type="submit" value="Aufwand hinzufügen">
+                </form>
+            %else:
+                <p>
+                    Bitte <a href="${data['_routes']['employees.create']}">fügen Sie zuerst einen Mitarbeiter zum System
+                    hinzu</a>,
+                    bevor Sie eine Projektassoziation durchführen.
+                </p>
+            %endif
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="box">
+        <div class="box__header">
+            <h5 class="box__title">Projekt bearbeiten: ${data['_old']['label']} - ${data['_old']['project_id']}</h5>
+        </div>
+        <div class="box__content">
+            <form action="${utilities.route(data['_routes']['projects.update'], {'id': data['_old']['id']})}"
+                  method="post">
+                <label for="project_id">Nummer</label>
+                <input type="text" name="project_id" id="project_id" value="${data['_old']['project_id']}" required>
+                <label for="label">Bezeichnung</label>
+                <input type="text" name="label" id="label" value="${data['_old']['label']}" required>
+                <label for="description">Beschreibung</label>
+                <input type="text" name="description" id="description" value="${data['_old']['description']}">
+                <label for="start_date">Start-Datum</label>
+                <input type="date" name="start_date" id="start_date" value="${data['_old']['start_date']}">
+                <label for="start_date">End-Datum</label>
+                <input type="date" name="end_date" id="end_date" value="${data['_old']['end_date']}">
+                <label for="budget">Budget</label>
+                <input type="number" name="budget" id="budget" value="${data['_old']['budget']}">
+                <label for="customer_id">Kunde</label>
+                <select name="customer_id" id="customer_id">
+                    % for customer in data['allCustomers']:
+                        % if customer['id'] == data['_old']['id']:
+                            <option selected value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
+                        % else:
+                            <option value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
+                        % endif
+                    %endfor
+                </select>
+                <input type="submit" value="Absenden">
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="box">
+        <div class="box__header">
+            <h5 class="box__title">Mitarbeiterzuordnung: ${data['_old']['label']} - ${data['_old']['project_id']}</h5>
+        </div>
+        <div class="box__content">
+            % if len(data['_old']['list_employees']) > 0:
+                <div class="overflow-container">
+                    <table>
+                        <thead>
+                        <th>Mitarbeitername</th>
+                        <th>Aktionen</th>
+                        </thead>
+                        <tbody>
+                            % for employee in data['_old']['list_employees']:
+                                <tr>
+                                    <td>${employee['employee'][0]['name']}</td>
+                                    <td>
+                                        <form action="${utilities.route(data['_routes']['projectemployees.delete'], {'id': employee['id']})}"
+                                              method="post">
+                                            <input type="submit" value="Löschen" class="btn-link">
+                                        </form>
+                                    </td>
+                                </tr>
+                            % endfor
+                        </tbody>
+                    </table>
+                </div>
+            % else:
+                <p>Diesem Projekt sind aktuell noch keine Mitarbeiter zugeordnet.</p>
+            % endif
 
-<h2>Wöchentlicher Aufwand</h2>
-% if len(data['allEmployees']) > 0:
-    % if len(data['timeList']) > 0:
-    <table class="table">
-        <thead>
-            <th></th>
-            <th>Jahr</th>
-            % for i in range(1, 54):
-                <th>${i}</th>
-            %endfor
-        </thead>
-        <tbody>
-            % for employee_id, timeData in data['timeList'].items():
-                % for year, yearsData in timeData.items():
-                    <tr>
-                        <td>
-                            %for employees in data['allEmployees']:
-                                %if employees['id'] == employee_id:
-                                    ${employees['name']}
+            % if len(data['allEmployees']) > 0:
+                <form action="${utilities.route(data['_routes']['projectemployees.store'], {'id': data['_old']['id']})}"
+                      method="post">
+                    <label for="employee_id">Mitarbeiter</label>
+                    <select required name="employee_id" id="employee_id">
+                        % for employee in data['allEmployees']:
+                            <% count = 0 %>
+                            % for already_employee in data['_old']['list_employees']:
+                                %if already_employee['employee_id'] == employee['id']:
+                                    <% count = count + 1 %>
                                 %endif
                             %endfor
-                        </td>
-                        <td>${year}</td>
-                        % for week, weekSum in yearsData.items():
-                            <td>${weekSum}</td>
-                        % endfor
-                    </tr>
-                % endfor
-            % endfor
-        </tbody>
-    </table>
-    % else:
-        <p>Es sind aktuell noch keine Zeiteinträge vorhanden.</p>
-    % endif
-    <form action="${utilities.route(data['_routes']['projecttimes.store'], {'id': data['_old']['id']})}" method="post">
-        <label for="employee_id">Mitarbeiter</label>
-        <select name="employee_id" id="employee_id" required>
-            % for employee in data['allEmployees']:
-                <option value="${employee['id']}">${employee['name']} - ${employee['id']}</option>
-            %endfor
-        </select>
-        <label for="week">Woche</label>
-        <select name="week" id="week" required>
-            % for week in range(1, 54):
-                <option value="${week}">${week}</option>
-            % endfor
-        </select>
-        <label for="year">Jahr</label>
-        <input type="number" required name="year" id="year" min="2018" max="2050">
-        <label for="hours_per_week">Stunden</label>
-        <input type="number" required name="hours_per_week" id="hours_per_week" min="1" max="168">
-        <input type="submit" value="Aufwand hinzufügen">
-    </form>
-%else:
-    <p>
-        Bitte <a href="${data['_routes']['employees.create']}">fügen Sie zuerst einen Mitarbeiter zum System hinzu</a>,
-        bevor Sie eine Projektassoziation durchführen.
-    </p>
-%endif
 
-<h2>Mitarbeiterzuordnung</h2>
-% if len(data['_old']['list_employees']) > 0:
-    <table>
-        <thead>
-        <th>Mitarbeitername</th>
-        <th>Aktionen</th>
-        </thead>
-        <tbody>
-            % for employee in data['_old']['list_employees']:
-                <tr>
-                    <td>${employee['employee'][0]['name']}</td>
-                    <td>
-                        <form action="${utilities.route(data['_routes']['projectemployees.delete'], {'id': employee['id']})}"
-                              method="post">
-                            <input type="submit" value="Löschen" class="btn-link">
-                        </form>
-                    </td>
-                </tr>
-            % endfor
-        </tbody>
-    </table>
-% else:
-    <p>Diesem Projekt sind aktuell noch keine Mitarbeiter zugeordnet.</p>
-% endif
-
-% if len(data['allEmployees']) > 0:
-    <form action="${utilities.route(data['_routes']['projectemployees.store'], {'id': data['_old']['id']})}"
-          method="post">
-        <label for="employee_id">Mitarbeiter</label>
-        <select required name="employee_id" id="employee_id">
-            % for employee in data['allEmployees']:
-                <% count = 0 %>
-                % for already_employee in data['_old']['list_employees']:
-                    %if already_employee['employee_id'] == employee['id']:
-                        <% count = count + 1 %>
-                    %endif
-                %endfor
-
-                % if count == 0:
-                    <option value="${employee['id']}">${employee['name']} - ${employee['id']}</option>
-                % else:
-                    <option disabled value="${employee['id']}">${employee['name']} - ${employee['id']}</option>
-                % endif
-            %endfor
-        </select>
-        <input type="submit" value="Mitarbeiter hinzufügen">
-    </form>
-%else:
-    <p>
-        Bitte <a href="${data['_routes']['employees.create']}">fügen Sie zuerst einen Mitarbeiter zum System hinzu</a>,
-        bevor Sie eine Projektassoziation durchführen.
-    </p>
-%endif
+                            % if count == 0:
+                                <option value="${employee['id']}">${employee['name']} - ${employee['id']}</option>
+                            % else:
+                                <option disabled value="${employee['id']}">${employee['name']}
+                                    - ${employee['id']}</option>
+                            % endif
+                        %endfor
+                    </select>
+                    <input type="submit" value="Mitarbeiter hinzufügen">
+                </form>
+            %else:
+                <p>
+                    Bitte <a href="${data['_routes']['employees.create']}">fügen Sie zuerst einen Mitarbeiter zum System
+                    hinzu</a>,
+                    bevor Sie eine Projektassoziation durchführen.
+                </p>
+            %endif
+        </div>
+    </div>
+</div>
