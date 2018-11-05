@@ -38,9 +38,11 @@ class ProjectController(BaseController):
         project = Project().findOrFail(id)
         allCustomers = Customer().all()
         allEmployees = Employee().all()
+        allProjectTimes = ProjectTime().all({'project_id': int(id)})
+        timeList = self.__generateHoursPerEmployeePerWeekYear(allProjectTimes)
 
         return self.view.load('projects.edit',
-                              {'_old': project[0], 'allCustomers': allCustomers, 'allEmployees': allEmployees})
+                              {'_old': project[0], 'allCustomers': allCustomers, 'allEmployees': allEmployees, 'timeList': timeList})
 
     def update(self, id, **kwargs):
         project = Project().update(id, self.__convertArgumentsToCorrectDatatype(kwargs))
@@ -78,3 +80,22 @@ class ProjectController(BaseController):
             'budget': float(args['budget']),
             'customer_id': int(args['customer_id']),
         }
+    def __generateHoursPerEmployeePerWeekYear(self, allProjectTimes):
+        result = {}
+        years = []
+
+        for projectTime in allProjectTimes:
+            result[projectTime['employee_id']] = {}
+            years.append(projectTime['year'])
+
+        years = list(set(years))
+        for year in years:
+            for projectTime in allProjectTimes:
+                result[projectTime['employee_id']][year] = {}
+                for week in range(1, 54):
+                    result[projectTime['employee_id']][year][week] = 0
+
+        for projectTime in allProjectTimes:
+            result[projectTime['employee_id']][projectTime['year']][projectTime['week']] += projectTime['hours_per_week']
+
+        return result
