@@ -105,6 +105,18 @@ class RouterConfig:
             'method': 'ProjectController@delete',
             'condition': {'method': ['POST']}
         },
+        {
+            'name': 'projectemployees.store',
+            'route': '/projects/:id/employees',
+            'method': 'ProjectEmployeeController@store',
+            'condition': {'method': ['POST']}
+        },
+         {
+             'name': 'projectemployees.delete',
+             'route': '/projects/:id/employees/delete',
+             'method': 'ProjectEmployeeController@delete',
+             'condition': {'method': ['POST']}
+         },
     ]
 
     @staticmethod

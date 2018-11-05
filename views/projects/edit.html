@@ -25,3 +25,55 @@
     </select>
     <input type="submit" value="Absenden">
 </form>
+
+
+<h2>Mitarbeiterzuordnung</h2>
+% if len(data['_old']['list_employees']) > 0:
+<table>
+    <thead>
+        <th>Mitarbeitername</th>
+        <th>Aktionen</th>
+    </thead>
+    <tbody>
+        % for employee in data['_old']['list_employees']:
+                <tr>
+                    <td>${employee['employee'][0]['name']}</td>
+                    <td>
+                        <form action="${utilities.route(data['_routes']['projectemployees.delete'], {'id': employee['id']})}" method="post">
+                            <input type="submit" value="Löschen" class="btn-link">
+                        </form>
+                    </td>
+                </tr>
+        % endfor
+    </tbody>
+</table>
+% else:
+    <p>Diesem Projekt sind aktuell noch keine Mitarbeiter zugeordnet.</p>
+% endif
+
+% if len(data['allEmployees']) > 0:
+<form action="${utilities.route(data['_routes']['projectemployees.store'], {'id': data['_old']['id']})}" method="post">
+    <label for="employee_id">Mitarbeiter</label> 
+    <select name="employee_id" id="employee_id">
+        % for employee in data['allEmployees']:
+            <% count = 0 %>
+            % for already_employee in data['_old']['list_employees']:
+                %if already_employee['employee_id'] == employee['id']:
+                    <% count = count + 1 %>
+                %endif
+            %endfor
+
+            % if count == 0:
+                <option value="${employee['id']}">${employee['name']} - ${employee['id']}</option>
+            % else:
+                <option disabled value="${employee['id']}">${employee['name']} - ${employee['id']}</option>
+            % endif
+        %endfor
+    </select>
+    <input type="submit" value="Mitarbeiter hinzufügen">
+</form>
+%else:
+    <p>
+        Bitte <a href="${data['_routes']['employees.create']}">fügen Sie zuerst einen Mitarbeiter zum System hinzu</a>, bevor Sie eine Projektassoziation durchführen.
+    </p>
+%endif

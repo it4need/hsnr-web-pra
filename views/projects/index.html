@@ -1,19 +1,19 @@
 <%namespace name="utilities" file="../utilities.html"/>
-
-<table>
-    <thead>
-    <th>ID</th>
-    <th>Nummer</th>
-    <th>Bezeichnung</th>
-    <th>Beschreibung</th>
-    <th>Bearbeitungszeitraum</th>
-    <th>Budget</th>
-    <th>Kunde</th>
-    <th>Mitarbeiter</th>
-    <th>Insg. Zeitkosten</th>
-    </thead>
-    <tbody>
-        % for project in data['projects']:
+% if len(data['projects']) > 0:
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>Nummer</th>
+        <th>Bezeichnung</th>
+        <th>Beschreibung</th>
+        <th>Bearbeitungszeitraum</th>
+        <th>Budget</th>
+        <th>Kunde</th>
+        <th>Mitarbeiter</th>
+        <th>Insg. Zeitkosten</th>
+        </thead>
+        <tbody>
+            % for project in data['projects']:
             <span>
                 <td>${project['id']}</td>
                 <td>${project['project_id']}</td>
@@ -24,18 +24,22 @@
                 <td>${project['customer']['label']}</td>
                 <td>
                     % for employee in project['list_employees']:
-                        <span>${employee['employee'][0]['name']}</span><br />
+                        <span>${employee['employee'][0]['name']}</span><br/>
                     % endfor
                 </td>
                 <td>${project['time_costs']}</td>
                 <td>
                     <a href="${utilities.route(data['_routes']['projects.show'], {'id': project['id']})}">Bearbeiten</a>
-                    <form action="${utilities.route(data['_routes']['projects.delete'], {'id': project['id']})}" method="post">
+                    <form action="${utilities.route(data['_routes']['projects.delete'], {'id': project['id']})}"
+                          method="post">
                         <input type="submit" value="Löschen" class="btn-link">
                     </form>
                 </td>
-            </tr>
-        % endfor
-    </tbody>
-</table>
-<a href="${data['_routes']['projects.create']}">Neues Projekt erstellen</a>
+                </tr>
+            % endfor
+        </tbody>
+    </table>
+% else:
+    Aktuell existieren noch keine Projekte.
+% endif
+<br /><a href="${data['_routes']['projects.create']}">Neues Projekt erstellen</a>

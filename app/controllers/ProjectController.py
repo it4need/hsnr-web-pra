@@ -5,6 +5,7 @@ from app.models.Project import Project
 from app.models.ProjectEmployee import ProjectEmployee
 from app.models.ProjectTime import ProjectTime
 from app.models.Customer import Customer
+from app.models.Employee import Employee
 
 
 class ProjectController(BaseController):
@@ -25,7 +26,7 @@ class ProjectController(BaseController):
         return self.view.load('projects.create', {'allCustomers': allCustomers})
 
     def store(self, **kwargs):
-        customer = Project().create(self.__convertArgumentsToCorrectDatatype(kwargs))
+        project = Project().create(self.__convertArgumentsToCorrectDatatype(kwargs))
 
         if project:
             self.redirect('projects.index', notificationData={'success': 'Der Projet wurde erfolgreich eingetragen.'})
@@ -36,8 +37,10 @@ class ProjectController(BaseController):
     def show(self, id):
         project = Project().findOrFail(id)
         allCustomers = Customer().all()
+        allEmployees = Employee().all()
 
-        return self.view.load('projects.edit', {'_old': project[0], 'allCustomers': allCustomers})
+        return self.view.load('projects.edit',
+                              {'_old': project[0], 'allCustomers': allCustomers, 'allEmployees': allEmployees})
 
     def update(self, id, **kwargs):
         project = Project().update(id, self.__convertArgumentsToCorrectDatatype(kwargs))

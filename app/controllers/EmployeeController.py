@@ -2,6 +2,7 @@
 
 from app.core.controller import BaseController
 from app.models.Employee import Employee
+from app.models.ProjectEmployee import ProjectEmployee
 
 
 class EmployeeController(BaseController):
@@ -39,6 +40,11 @@ class EmployeeController(BaseController):
 
     def delete(self, id):
         employee = Employee().delete(id)
+        associatedProjects = ProjectEmployee().all({'employee_id': int(id)})
+
+        for project in associatedProjects:
+            ProjectEmployee().delete(project['id'])
+
         if employee:
             self.redirect('employees.index', notificationData={
                 'success': 'Der Mitarbeiter mit der ID ' + id + ' wurde erfolgreich gelöscht. All seine Projektassoziationen wurden aufgehoben.'})
