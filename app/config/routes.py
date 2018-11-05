@@ -3,6 +3,7 @@
 class RouterConfig:
     routes = [
         {
+            'name': 'home',
             'route': '/',
             'method': 'HomeController@index',
         },
