@@ -11,7 +11,7 @@
     <input type="date" name="end_date" id="end_date">
     <label for="budget">Budget</label>
     <input type="number" name="budget" id="budget">
-    <label for="customer_id">Kundennummer</label>
+    <label for="customer_id">Kunde</label>
     <select name="customer_id" id="customer_id">
         % for customer in data['allCustomers']:
             <option value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
