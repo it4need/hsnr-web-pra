@@ -9,34 +9,38 @@
             </div>
         </div>
         <div class="box__content">
-            <table class="table">
-                <thead>
-                <th>ID</th>
-                <th>Nummer</th>
-                <th>Bezeichnung</th>
-                <th>Ansprechpartner</th>
-                <th>Ort</th>
-                <th class="actions"></th>
-                </thead>
-                <tbody>
-                    % for customer in data['customers']:
-                        <tr>
-                            <td>${customer['id']}</td>
-                            <td>${customer['customer_id']}</td>
-                            <td>${customer['label']}</td>
-                            <td>${customer['contact']}</td>
-                            <td>${customer['city']}</td>
-                            <td class="actions">
-                                <a href="${utilities.route(data['_routes']['customers.show'], {'id': customer['id']})}" class="btn btn--small"><i class="fas fa-edit inline"></i></a>
-                                <form class="inline-block" action="${utilities.route(data['_routes']['customers.delete'], {'id': customer['id']})}"
-                                      method="post">
-                                    <button type="submit" class="btn btn--danger btn--small"><i class="fas fa-trash-alt inline"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                    % endfor
-                </tbody>
-            </table>
+            % if len(data['customers']) > 0:
+                <table class="table">
+                    <thead>
+                    <th>ID</th>
+                    <th>Nummer</th>
+                    <th>Bezeichnung</th>
+                    <th>Ansprechpartner</th>
+                    <th>Ort</th>
+                    <th class="actions"></th>
+                    </thead>
+                    <tbody>
+                        % for customer in data['customers']:
+                            <tr>
+                                <td>${customer['id']}</td>
+                                <td>${customer['customer_id']}</td>
+                                <td>${customer['label']}</td>
+                                <td>${customer['contact']}</td>
+                                <td>${customer['city']}</td>
+                                <td class="actions">
+                                    <a href="${utilities.route(data['_routes']['customers.show'], {'id': customer['id']})}" class="btn btn--small"><i class="fas fa-edit inline"></i></a>
+                                    <form class="inline-block" action="${utilities.route(data['_routes']['customers.delete'], {'id': customer['id']})}"
+                                          method="post">
+                                        <button type="submit" class="btn btn--danger btn--small"><i class="fas fa-trash-alt inline"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        % endfor
+                    </tbody>
+                </table>
+            % else:
+                <p>Aktuell sind noch keine Kunden vorhanden.</p>
+            % endif
         </div>
     </div>
 </div>

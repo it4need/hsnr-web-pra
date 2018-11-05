@@ -51,9 +51,9 @@ p {
   font-size: 1.6rem;
   font-weight: 500; }
   .alert--success {
-    background-color: #1aff1a;
+    background-color: green;
     border: 1px solid #006700;
-    color: #000100; }
+    color: white; }
   .alert--danger {
     background-color: #ff9999;
     border: 1px solid #e60000;

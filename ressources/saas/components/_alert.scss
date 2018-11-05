@@ -5,9 +5,9 @@
   font-weight: 500;
 
   &--success {
-    background-color: lighten($color-status-success, 30%);
+    background-color: $color-status-success;
     border: 1px solid darken($color-status-success, 5%);
-    color: darken($color-status-success, 25%);
+    color: white;
   }
 
   &--danger {

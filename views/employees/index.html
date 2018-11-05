@@ -1,26 +1,46 @@
 <%namespace name="utilities" file="../utilities.html"/>
-
-<table>
-    <thead>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Funktion</th>
-    <th>Aktionen</th>
-    </thead>
-    <tbody>
-        % for employee in data['employees']:
-            <tr>
-                <td>${employee['id']}</td>
-                <td>${employee['name']}</td>
-                <td>${employee['position']}</td>
-                <td>
-                    <a href="${utilities.route(data['_routes']['employees.show'], {'id': employee['id']})}">Bearbeiten</a>
-                    <form action="${utilities.route(data['_routes']['employees.delete'], {'id': employee['id']})}" method="post">
-                        <input type="submit" value="Löschen" class="btn-link">
-                    </form>
-                </td>
-            </tr>
-        % endfor
-    </tbody>
-</table>
-<a href="${data['_routes']['employees.create']}">Neuen Mitarbeiter erstellen</a>
+<div class="row">
+    <div class="box">
+        <div class="box__header">
+            <h5 class="box__title">Mitarbeiterverwaltung</h5>
+            <div class="box__actions">
+                <a href="${data['_routes']['employees.create']}" class="btn btn--success"><i>&plus;</i>Neuen Mitarbeiter
+                    erstellen</a>
+            </div>
+        </div>
+        <div class="box__content">
+            %if len(data['employees']) > 0:
+                <table class="table">
+                    <thead>
+                    <thead>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Funktion</th>
+                    <th class="actions"></th>
+                    </thead>
+                    <tbody>
+                        % for employee in data['employees']:
+                            <tr>
+                                <td>${employee['id']}</td>
+                                <td>${employee['name']}</td>
+                                <td>${employee['position']}</td>
+                                <td class="actions">
+                                    <a href="${utilities.route(data['_routes']['employees.show'], {'id': employee['id']})}"
+                                       class="btn btn--small"><i class="fas fa-edit inline"></i></a>
+                                    <form class="inline-block"
+                                          action="${utilities.route(data['_routes']['employees.delete'], {'id': employee['id']})}"
+                                          method="post">
+                                        <button type="submit" class="btn btn--danger btn--small"><i
+                                                class="fas fa-trash-alt inline"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        % endfor
+                    </tbody>
+                </table>
+            %else:
+                <p>Aktuell sind noch keine Mitarbeiter vorhanden.</p>
+            %endif
+        </div>
+    </div>
+</div>
