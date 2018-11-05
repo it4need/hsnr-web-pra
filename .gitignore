@@ -2,6 +2,7 @@ _app
 _data
 _template
 data/
+.idea
 
 # Created by https://www.gitignore.io/api/git,node,pycharm
 # Edit at https://www.gitignore.io/?templates=git,node,pycharm
