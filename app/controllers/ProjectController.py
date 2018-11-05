@@ -19,17 +19,19 @@ class ProjectController(BaseController):
         allCustomers = Customer().all()
 
         if len(allCustomers) < 1:
-            self.redirect('projects.index', {'danger': 'Projekte können erst erstellt werden, wenn bereits Kunden vorhnaden sind.'})
+            self.redirect('projects.index', notificationData=
+            {'danger': 'Projekte können erst erstellt werden, wenn bereits Kunden vorhanden sind.'})
 
         return self.view.load('projects.create', {'allCustomers': allCustomers})
 
     def store(self, **kwargs):
         customer = Project().create(self.__convertArgumentsToCorrectDatatype(kwargs))
 
-        if customer:
-            self.redirect('projects.index', {'success': 'Der Projet wurde erfolgreich eingetragen.'})
+        if project:
+            self.redirect('projects.index', notificationData={'success': 'Der Projet wurde erfolgreich eingetragen.'})
         else:
-            self.redirect('projects.store', {'danger': 'Leider konnte das Projekt nicht erfolgreich angelegt werden.'})
+            self.redirect('projects.store',
+                          notificationData={'danger': 'Leider konnte das Projekt nicht erfolgreich angelegt werden.'})
 
     def show(self, id):
         project = Project().findOrFail(id)
@@ -41,10 +43,10 @@ class ProjectController(BaseController):
         project = Project().update(id, self.__convertArgumentsToCorrectDatatype(kwargs))
 
         if project:
-            self.redirect('projects.index',
-                          {'success': 'Das Projekt mit der ID ' + id + ' wurde erfolgreich geändert.'})
+            self.redirect('projects.index', notificationData=
+            {'success': 'Das Projekt mit der ID ' + id + ' wurde erfolgreich geändert.'})
         else:
-            self.redirect('projects.index', {'danger': 'Das Projekt konnte nicht geändert werden.'})
+            self.redirect('projects.index', notificationData={'danger': 'Das Projekt konnte nicht geändert werden.'})
 
     def delete(self, id):
         allProjectEmployees = ProjectEmployee().all({'project_id': int(id)})
@@ -58,10 +60,10 @@ class ProjectController(BaseController):
 
         project = Project().delete(id)
         if project:
-            self.redirect('projects.index', {
+            self.redirect('projects.index', notificationData={
                 'success': 'Das Projekt mit der ID ' + id + ' wurde mit allen zugehörigen Einträgen erfolgreich gelöscht.'})
         else:
-            self.redirect('projects.index', {'danger': 'Das Projekt konnte nicht gelöscht werden.'})
+            self.redirect('projects.index', notificationData={'danger': 'Das Projekt konnte nicht gelöscht werden.'})
 
     def __convertArgumentsToCorrectDatatype(self, args):
         return {
