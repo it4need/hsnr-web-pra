@@ -1,0 +1,17 @@
+body {
+  background-color: $color-primary-light;
+}
+
+.row {
+  margin: 0 auto;
+  max-width: 120rem;
+}
+
+.content {
+  margin-top: 3rem;
+}
+
+.box, .alerts {
+    max-width: 100rem;
+    margin: 1.5rem auto 0 auto;
+}

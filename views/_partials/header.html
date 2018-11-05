@@ -1,7 +1,30 @@
+<%namespace name="utilities" file="../utilities.html"/>
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+<div class="page_wrapper">
+    <header class="header">
+        <div class="row">
+            <div class="header__pagetitle">
+                <h5 class="header__title"><a href="${data['_routes']['home']}">Projektinformationssystem</a></h5>
+            </div>
+            <nav class="navigation">
+                <ul class="navigation__list">
+                    <li class="navigation__item ${'navigation__item--active' if utilities.isCurrentUrl('projects') else ''}">
+                        <a class="navigation__link" href="${data['_routes']['projects.index']}">Projekte</a>
+                    </li>
+                    <li class="navigation__item ${'navigation__item--active' if utilities.isCurrentUrl('employees') else ''}">
+                        <a class="navigation__link" href="${data['_routes']['employees.index']}">Mitarbeiter</a>
+                    </li>
+                    <li class="navigation__item ${'navigation__item--active' if utilities.isCurrentUrl('customers') else ''}">
+                        <a class="navigation__link" href="${data['_routes']['customers.index']}">Kunden</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="content">
 <%include file="alerts.html"/>

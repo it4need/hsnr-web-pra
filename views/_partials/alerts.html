@@ -1,5 +1,9 @@
-% for type, notification in data['_notifications'].items():
-    <div class="alert alert--${type}">
-        ${notification}
+<div class="row">
+    <div class="alerts">
+        % for type, notification in data['_notifications'].items():
+            <div class="alert alert--${type}">
+                ${notification}
+            </div>
+        % endfor
     </div>
-% endfor
+</div>

@@ -1,0 +1,29 @@
+.table {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  font-size: 1.3rem;
+  border-collapse: collapse;
+
+  td, tr, th {
+    padding: .5rem;
+    text-align: left;
+  }
+
+  th {
+    border-bottom: 1px solid $color-grey-light-2;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+  }
+
+  tr {
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-grey-light-2;
+    }
+  }
+
+  .actions {
+    text-align: right;
+  }
+
+}

@@ -1,0 +1,32 @@
+.navigation {
+  &__list {
+    list-style-type: none;
+    text-align: right;
+  }
+
+  &__item {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 2.5rem;
+    }
+
+    &--active {
+      .navigation__link {
+        color: $color-grey-dark-3;
+      }
+    }
+  }
+
+  &__link {
+    float: left;
+    text-decoration: none;
+    color: $color-grey-dark;
+    font-weight: 300;
+    font-size: 1.5rem;
+
+    &:hover {
+      color: $color-grey-dark-3;
+    }
+  }
+}
