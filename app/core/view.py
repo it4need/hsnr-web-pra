@@ -13,6 +13,7 @@ class View(object):
     def load(self, template, data_opl={}):
         data_opl['_routes'] = RouterConfig.getAllRoutes()
         data_opl['_notifications'] = self.__getNotificationSessions()
+        data_opl['_currentUrl'] = cherrypy.url()
 
         return self.__render(template, data_opl)
 

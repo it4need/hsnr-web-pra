@@ -6,3 +6,9 @@ for key, value in params.items():
 
 return final_route
 %></%def>
+
+<%def name="isCurrentUrl(path)"><%
+        if path in data['_currentUrl']:
+            return True
+        return False
+%></%def>
