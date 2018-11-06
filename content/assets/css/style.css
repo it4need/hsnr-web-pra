@@ -43,6 +43,12 @@ body {
   line-height: 1.7;
   color: #777; }
 
+a {
+  color: #cad7e2;
+  text-decoration: none; }
+  a:visited {
+    color: #777; }
+
 p {
   font-size: 1.6rem; }
   p:not(:last-child) {
@@ -71,8 +77,8 @@ p {
     color: navy; }
 
 .table {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 4rem;
   width: 100%;
   font-size: 1.3rem;
   border-collapse: collapse;
@@ -89,6 +95,10 @@ p {
   .table .actions {
     text-align: right;
     min-width: 120px; }
+  .table .name {
+    min-width: 120px; }
+  .table .year {
+    min-width: 60px; }
 
 .box {
   background-color: #fff;
@@ -131,6 +141,11 @@ p {
   color: #88a6be; }
   .btn:not(:last-child) {
     margin-right: .5rem; }
+  .btn:active, .btn:focus {
+    outline: 0;
+    border: none; }
+    .btn:active:not(.btn--small), .btn:focus:not(.btn--small) {
+      box-shadow: 0 0.2rem 2rem rgba(0, 0, 0, 0.2); }
   .btn i {
     margin-right: 0.8rem;
     font-style: normal;
@@ -138,16 +153,57 @@ p {
     font-size: 2rem; }
     .btn i.inline {
       margin-right: 0; }
-  .btn--success {
+  .btn--success, .btn--success:visited {
     background: green;
     color: #fff; }
-  .btn--danger {
+    .btn--success:active, .btn--success:focus, .btn--success:visited:active, .btn--success:visited:focus {
+      background: #006700;
+      color: #fff; }
+  .btn--danger, .btn-success:visited {
     background: red;
     color: #fff; }
+    .btn--danger:active, .btn--danger:focus, .btn-success:visited:active, .btn-success:visited:focus {
+      background: #e60000;
+      color: #fff; }
   .btn--small {
     padding: 0.5rem 1rem; }
     .btn--small i {
       font-size: 1.5rem !important; }
+
+.form {
+  max-width: 60rem;
+  margin: 0 auto; }
+  .form__group {
+    margin: 0 auto 1rem auto;
+    width: 100%;
+    text-align: center;
+    position: relative; }
+    .form__group::after {
+      content: "";
+      display: table;
+      clear: both; }
+    .form__group .btn {
+      margin-top: 1rem; }
+  .form__label {
+    float: left;
+    width: 30%;
+    text-align: right;
+    padding-right: 2rem;
+    margin-top: 3px;
+    font-size: 1.3rem; }
+  .form__input {
+    float: left;
+    width: 50%;
+    border: 0;
+    font-size: 1.3rem;
+    background-color: #ebf0f4;
+    height: 3rem;
+    padding: .5rem 1rem;
+    font-family: inherit;
+    border-radius: 0.25rem; }
+    .form__input:focus {
+      outline: 0;
+      border: 1px solid #c4c4c4; }
 
 body {
   background-color: #ebf0f4; }
@@ -157,7 +213,8 @@ body {
   max-width: 120rem; }
 
 .content {
-  margin-top: 3rem; }
+  margin-top: 3rem;
+  margin-bottom: 8rem; }
 
 .box, .alerts {
   max-width: 100rem;

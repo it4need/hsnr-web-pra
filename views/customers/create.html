@@ -5,16 +5,26 @@
             <h5 class="box__title">Neuen Kunde erstellen</h5>
         </div>
         <div class="box__content">
-            <form action="${data['_routes']['customers.store']}" method="post">
-                <label for="customer_id">Nummer</label>
-                <input type="text" name="customer_id" id="customer_id" required>
-                <label for="last_name">Bezeichnung</label>
-                <input type="text" name="label" id="label" required>
-                <label for="position">Ansprechpartner</label>
-                <input type="text" name="contact" id="contact">
-                <label for="position">Ort</label>
-                <input type="text" name="city" id="city">
-                <input type="submit" value="Absenden">
+            <form class="form" action="${data['_routes']['customers.store']}" method="post">
+                <div class="form__group">
+                    <label for="customer_id" class="form__label">Nummer</label>
+                    <input type="text" class="form__input" name="customer_id" id="customer_id" required>
+                </div>
+                <div class="form__group">
+                    <label for="label" class="form__label">Bezeichnung</label>
+                    <input type="text" class="form__input" name="label" id="label" required>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="contact">Ansprechpartner</label>
+                    <input class="form__input" type="text" name="contact" id="contact">
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="city">Ort</label>
+                    <input class="form__input" type="text" name="city" id="city">
+                </div>
+                <div class="form__group">
+                    <button class="btn btn--success" type="submit">Kunde erstellen</button>
+                </div>
             </form>
         </div>
     </div>

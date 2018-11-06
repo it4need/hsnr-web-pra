@@ -5,26 +5,42 @@
             <h5 class="box__title">Neues Projekt erstellen</h5>
         </div>
         <div class="box__content">
-            <form action="${data['_routes']['projects.store']}" method="post">
-                <label for="project_id">Nummer</label>
-                <input type="text" name="project_id" id="project_id" required>
-                <label for="label">Bezeichnung</label>
-                <input type="text" name="label" id="label" required>
-                <label for="description">Beschreibung</label>
-                <input type="text" name="description" id="description">
-                <label for="start_date">Start-Datum</label>
-                <input type="date" name="start_date" id="start_date">
-                <label for="start_date">End-Datum</label>
-                <input type="date" name="end_date" id="end_date">
-                <label for="budget">Budget</label>
-                <input type="number" name="budget" id="budget">
-                <label for="customer_id">Kunde</label>
-                <select name="customer_id" id="customer_id">
-                    % for customer in data['allCustomers']:
+            <form class="form" action="${data['_routes']['projects.store']}" method="post">
+                <div class="form__group">
+                    <label class="form__label" for="project_id">Nummer</label>
+                    <input class="form__input" type="text" name="project_id" id="project_id" required>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="label">Bezeichnung</label>
+                    <input class="form__input" type="text" name="label" id="label" required>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="description">Beschreibung</label>
+                    <input class="form__input" type="text" name="description" id="description">
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="start_date">Start-Datum</label>
+                    <input class="form__input" type="date" name="start_date" id="start_date">
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="end_date">End-Datum</label>
+                    <input class="form__input" type="date" name="end_date" id="end_date">
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="budget">Budget</label>
+                    <input class="form__input" type="number" name="budget" id="budget" required>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="customer_id">Kunde</label>
+                    <select class="form__input" name="customer_id" id="customer_id">
+                        % for customer in data['allCustomers']:
                         <option value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
-                    %endfor
-                </select>
-                <input type="submit" value="Absenden">
+                        %endfor
+                    </select>
+                </div>
+                <div class="form__group">
+                    <input class="btn btn--success" type="submit" value="Absenden">
+                </div>
             </form>
         </div>
     </div>

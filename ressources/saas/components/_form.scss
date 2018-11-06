@@ -1,0 +1,39 @@
+.form {
+  max-width: 60rem;
+  margin: 0 auto;
+
+  &__group {
+    margin: 0 auto 1rem auto;
+    width: 100%;
+    text-align: center;
+    @include clearfix;
+    position: relative;
+    .btn {
+      margin-top: 1rem;
+    }
+  }
+  &__label {
+    float: left;
+    width: 30%;
+    text-align: right;
+    padding-right: 2rem;
+    margin-top: 3px;
+    font-size: 1.3rem;
+  }
+  &__input {
+    float: left;
+    width: 50%;
+    border: 0;
+    font-size: 1.3rem;
+    background-color: $color-primary-light;
+    height: 3rem;
+    padding: .5rem 1rem;
+    font-family: inherit;
+    border-radius: 0.25rem;
+
+    &:focus {
+      outline: 0;
+      border: 1px solid $color-border;
+    }
+  }
+}

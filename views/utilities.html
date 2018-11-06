@@ -12,3 +12,8 @@ return final_route
             return True
         return False
 %></%def>
+
+<%def name="currentYear()"><%
+    import time
+    return time.strftime("%Y")
+%></%def>

@@ -5,14 +5,22 @@
             <h5 class="box__title">Neuen Mitarbeiter erstellen</h5>
         </div>
         <div class="box__content">
-            <form action="${data['_routes']['employees.store']}" method="post">
-                <label for="first_name">Vorname</label>
-                <input type="text" name="first_name" id="first_name">
-                <label for="last_name">Nachname</label>
-                <input type="text" name="last_name" id="last_name" required>
-                <label for="position">Position</label>
-                <input type="text" name="position" id="position">
-                <input type="submit" value="Absenden">
+            <form class="form" action="${data['_routes']['employees.store']}" method="post">
+                <div class="form__group">
+                    <label class="form__label" for="first_name">Vorname</label>
+                    <input class="form__input" type="text" name="first_name" id="first_name">
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="last_name">Nachname</label>
+                    <input class="form__input" type="text" name="last_name" id="last_name" required>
+                </div>
+                <div class="form__group">
+                    <label class="form__label" for="position">Position</label>
+                    <input class="form__input" type="text" name="position" id="position">
+                </div>
+                <div class="form__group">
+                    <button type="submit" class="btn btn--success">Mitarbeiter erstellen</button>
+                </div>
             </form>
         </div>
     </div>

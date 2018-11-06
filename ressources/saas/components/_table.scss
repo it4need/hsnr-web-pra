@@ -1,6 +1,6 @@
 .table {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 4rem;
   width: 100%;
   font-size: 1.3rem;
   border-collapse: collapse;
@@ -26,6 +26,15 @@
   .actions {
     text-align: right;
     min-width: 120px;
+  }
+
+
+  .name {
+    min-width: 120px;
+  }
+
+  .year {
+    min-width: 60px;
   }
 
 }

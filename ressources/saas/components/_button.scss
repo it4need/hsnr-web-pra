@@ -17,6 +17,16 @@
     margin-right: .5rem;
   }
 
+  &:active,
+  &:focus {
+    outline: 0;
+    border: none;
+
+    &:not(.btn--small) {
+       box-shadow: 0 .2rem 2rem rgba($color-black, .2);
+    }
+  }
+
   i {
     margin-right: 0.8rem;
     font-style: normal;
@@ -28,14 +38,26 @@
     }
   }
 
-  &--success {
+  &--success, &--success:visited  {
     background: $color-status-success;
     color: $color-white;
+
+    &:active,
+    &:focus {
+      background: darken($color-status-success, 5);
+      color: $color-white;
+    }
   }
 
-  &--danger {
+  &--danger, &-success:visited {
     background: $color-status-danger;
     color: $color-white;
+
+    &:active,
+    &:focus {
+      background: darken($color-status-danger, 5);
+      color: $color-white;
+    }
   }
 
   &--small {
