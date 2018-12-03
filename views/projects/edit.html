@@ -56,6 +56,7 @@
                 <div class="form__group">
                     <label class="form__label" for="employee_id">Mitarbeiter</label>
                     <select class="form__input" name="employee_id" id="employee_id" required>
+                        <option value="">- Mitarbeiter wählen -</option>
                         % for employee in data['allEmployees']:
                         <option value="${employee['id']}">${employee['name']} - ${employee['id']}</option>
                         %endfor
@@ -64,6 +65,7 @@
                 <div class="form__group">
                     <label class="form__label" for="week">Woche</label>
                     <select class="form__input" name="week" id="week" required>
+                        <option value="">- Woche wählen -</option>
                         % for week in range(1, 54):
                         <option value="${week}">${week}</option>
                         % endfor
@@ -133,9 +135,10 @@
                 </div>
                 <div class="form__group">
                     <label class="form__label" for="customer_id">Kunde</label>
-                    <select class="form__input" name="customer_id" id="customer_id">
+                    <select class="form__input" name="customer_id" id="customer_id" required>
+                        <option value="">- Kunde wählen -</option>
                         % for customer in data['allCustomers']:
-                        % if customer['id'] == data['_old']['id']:
+                        % if customer['id'] == data['_old']['customer']['id']:
                         <option selected value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
                         % else:
                         <option value="${customer['id']}">${customer['label']} - ${customer['id']}</option>
@@ -190,6 +193,7 @@
                 <div class="form__group">
                     <label class="form__label" for="employee_id_2">Mitarbeiter</label>
                     <select class="form__input" required name="employee_id" id="employee_id_2">
+                        <option value="">- Mitarbeiter wählen -</option>
                         % for employee in data['allEmployees']:
                         <% count = 0 %>
                         % for already_employee in data['_old']['list_employees']:

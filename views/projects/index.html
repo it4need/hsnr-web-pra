@@ -13,17 +13,18 @@
                 <div class="overflow-container">
                     <table class="table">
                         <thead>
-                        <thead>
-                        <th>ID</th>
-                        <th>Nummer</th>
-                        <th>Bezeichnung</th>
-                        <th>Beschreibung</th>
-                        <th>Bearbeitungszeitraum</th>
-                        <th>Budget</th>
-                        <th>Kunde</th>
-                        <th>Mitarbeiter</th>
-                        <th>Zeit</th>
-                        <th class="actions"></th>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nummer</th>
+                                <th>Bezeichnung</th>
+                                <th>Beschreibung</th>
+                                <th>Bearbeitungszeitraum</th>
+                                <th>Budget</th>
+                                <th>Kunde</th>
+                                <th>Mitarbeiter</th>
+                                <th>Zeit</th>
+                                <th class="actions"></th>
+                            </tr>
                         </thead>
                         <tbody>
                             % for project in data['projects']:
@@ -59,3 +60,6 @@
             % else:
                 <p>Aktuell existieren noch keine Projekte.</p>
             % endif
+        </div>
+    </div>
+</div>
