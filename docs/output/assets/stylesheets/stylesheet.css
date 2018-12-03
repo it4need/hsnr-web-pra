@@ -426,6 +426,10 @@ th {
     padding: 0;
 }
 
+th:not(:last-child) {
+    border-right: 1px solid #ebebeb;
+}
+
 /* LAYOUT STYLES */
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, serif;
@@ -594,15 +598,19 @@ hr {
 table {
     width: 100%;
     border: 1px solid #ebebeb;
+    margin-bottom: 1rem;
 }
 
 th {
     font-weight: 500;
+    text-align: left;
+    padding: 1rem;
 }
 
 td {
     font-weight: 300;
-    text-align: center;
+    text-align: left;
+    padding: 1rem;
     border: 1px solid #ebebeb;
 }
 

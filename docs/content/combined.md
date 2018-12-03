@@ -177,3 +177,88 @@ den TemplateParser gerendet wird. Das View steht lediglich in Verbindung mit den
     : Lädt das Template `template` und übergibt `data_opl` an das View als Parameter weiter
     * Rückgabewerte
     : `string`: fertig vom View gerenderter String zur Ausgabe
+
+# Datenablage
+Die Models generieren bei initialen Aufruf die JSON-Dateien, welche zur Datenablage verwendet werden. Diese liegen 
+standardmäßig im Ordner `/data`. Jedes Model benutzt ein dazugehöriges individuelles Datenerzeugnis. Pivotelemente
+werden ebenso in einzelnen Models verwaltet wie die eigentlichen Daten selbst.
+
+## Beispiel einer JSON-Datei
+```json
+{
+   "meta": {
+      "maxId": 2,
+      "columns": [
+         [
+            "id",
+            "customer_id",
+            "label",
+            "contact",
+            "city"
+         ]
+      ]
+   },
+   "data": [
+      [
+         1,
+         "CUSTOMER-00001",
+         "Max Mustermann AG",
+         "Max Mustermann",
+         "Musterstadt"
+      ],
+      [
+         2,
+         "CUSTOMER-00002",
+         "Erika Mustermann AG",
+         "Erika Mustermann",
+         "Musterstadt"
+      ]
+   ]
+}
+```
+
+## Transformierung der Daten
+Da es über normale 1-n-Beziehungen ebenso Pivottabellen geben muss und grundsätzlich eine Transformierung der Daten
+manchmal sinnvoll erscheint, kann in der eigentlich Model-Klasse eine spezielle Funktion mit dem Namen `_transformData`
+implementiert werden. Diese Funktion wird dann vor der Datenausgabe aufgerufen und manipuliert das entsprechende Ergebnis.
+Als Übergabeparameter enthält diese die aktuelle Liste und muss dann die manipulierte Liste zurückgeben.
+
+### Beispiel im Employee
+```python
+class Employee(BaseModel):
+    def __init__(self):
+        file_name = 'employee'
+        data_attributes = ['last_name', 'first_name', 'position']
+        BaseModel.__init__(self, file_name, data_attributes)
+
+    def _transformData(self, employees):
+        formattedEmployees = list(employees)
+
+        for employee in formattedEmployees:
+            employee['name'] = employee['last_name']
+
+            if employee['first_name'] is not None:
+                employee['name'] += ', ' + employee['first_name']
+
+        return formattedEmployees
+```
+
+# Validierungen
+Die HTML5-Validierungen wurden mithilfe des ["Nu Html Checker"](https://validator.w3.org/nu/#textarea) vom W3C 
+durchgeführt. Die Ergebnisse befinden sich in folgender Tabelle:
+
+| Route | Fehler | Warnungen |
+|-------|--------|----------|
+| / | 0 | 0 |
+| /employees | 0 | 0 |
+| /employees/create  | 0 | 0 | 
+| /employees/{id}  | 0 | 0 | 
+| /projects | 0 | 0 |
+| /projects/create  | 0 | 2 | 
+| /projects/{id}  | 0 | 2 | 
+| /customers | 0 | 0 |
+| /customers/create  | 0 | 0 | 
+| /customers/{id}  | 0 | 0 | 
+
+
+Die Warnungen können ignoriert werden, da diese lediglich für ältere Browser relevant sind (HTML5 polyfilling).
