@@ -7,7 +7,17 @@ der Applikation. Im Einzelnen gehen wir auf diese kurz ein und beschreiben die B
 ### Controller.py
 Die Basis-Klasse des Controllers beinhaltet allgemeine Funktionen, welche für alle abgeleiteten Controller sinnvoll sind.
 Der Controller arbeitet im MVC-Pattern hauptsächlich mit den Models zur Dateninteraktion und dem Views zur Präsentation
-zusammen. Der Controller nimmt vom Router die entsprechende Funktion entgegen und verarbeitet diese dann.
+zusammen. Der Controller nimmt vom Router die entsprechende Funktion entgegen und verarbeitet diese dann. Die abgeleiteten
+Controller haben immer folgenden beispielsweisen Aufbau:
+
+| URI | HTTP-Verb | Action | Route Name |
+|-------|--------|----------|-----------|
+| /employees | GET | index | employees.index |
+| /employees/create | GET | create | employees.create |
+| /employees/store | POST | store | employees.store |
+| /employees/:id  | GET | show | employees.show |
+| /employees/:id  | POST | update | employees.update |
+| /employees/:id/delete | POST | delete | employees.delete |
 
 ### Model.py
 Die Basis-Klasse des Models liefert generalisierte Möglichkeiten zur Datenmanipulation und -interaktion, welche durch

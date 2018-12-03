@@ -43,7 +43,7 @@ manchmal sinnvoll erscheint, kann in der eigentlich Model-Klasse eine spezielle 
 implementiert werden. Diese Funktion wird dann vor der Datenausgabe aufgerufen und manipuliert das entsprechende Ergebnis.
 Als Übergabeparameter enthält diese die aktuelle Liste und muss dann die manipulierte Liste zurückgeben.
 
-### Beispiel im Employee
+### Beispiel der Transformierung im Employee-Model
 ```python
 class Employee(BaseModel):
     def __init__(self):
