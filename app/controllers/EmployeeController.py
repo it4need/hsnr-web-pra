@@ -3,6 +3,7 @@
 from app.core.controller import BaseController
 from app.models.Employee import Employee
 from app.models.ProjectEmployee import ProjectEmployee
+from app.models.ProjectTime import ProjectTime
 
 
 class EmployeeController(BaseController):
@@ -39,8 +40,14 @@ class EmployeeController(BaseController):
                           notificationData={'danger': 'Der Mitarbeiter konnte nicht geändert werden.'})
 
     def delete(self, id):
-        employee = Employee().delete(id)
         associatedProjects = ProjectEmployee().all({'employee_id': int(id)})
+        associatedProjectsTimeTable = ProjectTime().all({'employee_id': int(id)})
+
+        if associatedProjectsTimeTable:
+            self.redirect('employees.index',
+                          notificationData={'danger': 'Der Mitarbeiter konnte nicht gelöscht werden, da es noch zugehörige Zeiteinträge in Projekten gibt.'})
+
+        employee = Employee().delete(id)
 
         for project in associatedProjects:
             ProjectEmployee().delete(project['id'])
