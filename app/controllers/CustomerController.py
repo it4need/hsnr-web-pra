@@ -26,7 +26,7 @@ class CustomerController(BaseController):
 
     def show(self, id):
         customer = Customer().findOrFail(id)
-        print(customer)
+
         return self.view.load('customers.edit', {'_old': customer[0]})
 
     def update(self, id, **kwargs):
