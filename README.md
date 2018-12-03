@@ -1,2 +1,2 @@
 # hsnr-web-pra1
-HSNR - WEB - PRA1
+Die Dokumentation befindet sich im `/docs`-Verzeichnis. 
