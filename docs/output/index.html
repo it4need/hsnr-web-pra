@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Jan André Schlösser">
+    <meta name="author" content="Hanno Siebel">
+    <meta name="dcterms.date" content="">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/highlight.css" media="screen" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <script src="assets/javascripts/highlight.pack.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Projektinformationssystem</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>WEB-PRA 1</h1>
+        <h2>Jan André Schlösser (1085978)<br>Hanno Siebel (1082670)</h2>
+        <a href="https://github.com/it4need/hsnr-web-pra" class="button"><small>Projekt ansehen auf</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+
+<h1 id="projektinformations-system-pis">Projektinformations-System (PIS)</h1>
+<h2 id="aufgabe-der-anwendung">Aufgabe der Anwendung</h2>
+<p>Das Projektinformationssystem (nachfolgend mit PIS bezeichnet) ist eine Webapplikation, mit der ein Unternehmen relevante Informationen zu kundenspezifischen Projekten verwalten kann. Dazu gehören insbesondere:</p>
+<h2 id="übersicht-der-fachlichen-funktionen">Übersicht der fachlichen Funktionen</h2>
+<ul>
+<li>
+Verwaltung der Projektdaten
+<ul>
+<li>
+Anlegen, Ändern und Löschen von Projektdaten
+</li>
+</ul>
+</li>
+<li>
+Verwaltung der Kundendaten
+<ul>
+<li>
+Anlegen, Ändern und Löschen von Kundendaten
+</li>
+</ul>
+</li>
+<li>
+Verwaltung der Mitarbeiterdaten
+<ul>
+<li>
+Anlegen, Ändern und Löschen von Mitarbeiterdaten
+</li>
+</ul>
+</li>
+<li>
+Projektübersicht als Auswertung
+<ul>
+<li>
+Projektübersicht mit allen Projekten
+<ul>
+<li>
+nach Projektbezeichnung sortiert
+</li>
+<li>
+Auflistung der Projektmitarbeiter, sortiert nach Name, Vorname
+</li>
+<li>
+wöchentlicher Aufwand.
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="allgemeines-zum-applikationsaufbau">Allgemeines zum Applikationsaufbau</h2>
+<p>Die Applikation wurde mit CherryPy in Python entwickelt. Es wird das Model-View-Controller (MVC) Entwurfsmuster zur Strukturierung der Applikation verwendet. Als Template-Engine wird mako verwendet. Die erzeugten Daten der Models werden in JSON-Dateien gespeichert.</p>
+<h2 id="grundsätzliches">Grundsätzliches</h2>
+<h3 id="order-struktur">Order-Struktur</h3>
+<dl>
+<dt>/app</dt>
+<dd>enthält die gesamte Applikationslogik
+</dd>
+<dt>/app/config</dt>
+<dd>enthält die gesamten Konfigurations-Dateien
+</dd>
+<dt>/app/controllers</dt>
+<dd>enthält die spezifischen Applikations-Controller
+</dd>
+<dt>/app/core</dt>
+<dd>enthält die Basis-Klassen zur globalen Verwendung
+</dd>
+<dt>/app/models</dt>
+<dd>enthält die spezifischen Models für die Interaktion mit den JSON-Dateien
+</dd>
+<dt>/content/assets</dt>
+<dd>enthält alle statischen und kompilierten Elemente, wie z.B. JavaScript-Dateien und CSS-Dateien
+</dd>
+<dt>/data</dt>
+<dd>enthält die erzeugten JSON-Dateien des Models
+</dd>
+<dt>/docs</dt>
+<dd>enthält die Dokumentation der Anwendung
+</dd>
+<dt>/ressources/saas</dt>
+<dd>enthält alle vorkompilierten CSS-Dateien in Saas
+</dd>
+<dt>/views</dt>
+<dd>enthält die mako-Templates zur Anzeige im View
+</dd>
+<dt>/views/_partials</dt>
+<dd>enthält allgemeine mako-Templates, welche unabhängig vom jeweiligen Template sind
+</dd>
+</dl>
+<h3 id="starten-des-cherrypy-servers">Starten des Cherrypy-Servers</h3>
+<p>Damit der Cherrypy-Applikationsserver gestartet werden kann, wird folgende Kommandozeile ausgeführt:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1">$ <span class="ex">python3</span> server.py</a></code></pre></div>
+<p>Die Applikation ist anschließend unter http://localhost:8080 erreichbar.</p>
+<h3 id="routing">Routing</h3>
+<p>Die Applikation nutzt einen eigenen Routing-Dispatcher, welcher explizites Routing ermöglicht. Dadurch kann das Projekt in einigen Schritten einfach in einen REST-Ansatz konvertiert werden. Weiterhin ist die Bennung der Funktionen unabhängig von der URL-Struktur und es können verschiedene Parameter übergeben werden. Die gesamte Konfiguration des Routings ist in der app/config/routes.py zu finden.</p>
+<h2 id="komponenten">Komponenten</h2>
+<h3 id="beschreibung-der-basiskomponenten">Beschreibung der Basiskomponenten</h3>
+<p>In Allgemeinen besteht die gesamte Applikation aus vier Klassen: Controller.py, Model.py, Router.py, View.py. Diese Klassen sind für grundsätzliche applikationsunabhängige Aufgaben zuständig. Sie generalisieren also die Grund-Prozesse der Applikation. Im Einzelnen gehen wir auf diese kurz ein und beschreiben die Benutzung dieser.</p>
+<h4 id="controller.py">Controller.py</h4>
+<p>Die Basis-Klasse des Controllers beinhaltet allgemeine Funktionen, welche für alle abgeleiteten Controller sinnvoll sind. Der Controller arbeitet im MVC-Pattern hauptsächlich mit den Models zur Dateninteraktion und dem Views zur Präsentation zusammen. Der Controller nimmt vom Router die entsprechende Funktion entgegen und verarbeitet diese dann.</p>
+<h4 id="model.py">Model.py</h4>
+<h4 id="router.py">Router.py</h4>
+<h4 id="view.py">View.py</h4>
+<h3 id="programmierschnittstellen">Programmierschnittstellen</h3>
+<h4 id="controller.py-1">Controller.py</h4>
+<h5 id="programmierschnittstellen-1">Programmierschnittstellen</h5>
+<ul>
+<li>
+<code>redirect(string url, dictonary params = {}, dictonary notificationData = {}) : null</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>erzeugt einen HTTP-Redirect an <code>url</code> mit <code>params</code> als HTTP-Argumente und <code>notificationData</code> als Flash-Message.
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>null</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>route(string route, dictonary params = {}) : string</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>generiert eine fertige Route aus <code>route</code> mithilfe der angegebenen Parameter in <code>params</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>string</code> Konstrutierte Route, welche <code>params</code> enthält
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="model.py-1">Model.py</h4>
+<h4 id="router.py-1">Router.py</h4>
+<ul>
+<li>
+<code>getAllRoutes(list routerConfig) : RoutesDispatcher</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>generiert eine <code>RoutesDispatcher</code> anhand der übergebenen Liste in <code>routerConfig</code> und importiert dynamisch die jeweiligen Controller für die Verwendung (Autoloading)
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>object</code>: RoutesDispatcher
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="view.py-1">View.py</h4>
+<ul>
+<li>
+<code>__init__(string view_search_folder) : null</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>Konsturktor, welcher den Lookup-Folder für mako in <code>view_search_folder</code> setzt
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>null</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>load(string template, dictonary data_opl={}) : string</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>Lädt das Template <code>template</code> und übergibt <code>data_opl</code> an das View als Parameter weiter
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>string</code>: fertig vom View gerenderter String zur Ausgabe
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+
+        <br /><br /><p class="repo-owner"><small>Gültigkeitsdatum: 02.12.2018. Das <a href="https://github.com/jasonlong/architect-theme">architect-theme</a> ist ein Produkt von <a href="https://github.com/jasonlong">jasonlong</a>.</small></p>
+        </section>
+        <aside id="sidebar">
+          <a href="https://github.com/it4need/hsnr-web-pra/archive/master.zip" class="button">
+            <small>Projekt-Download</small>
+            .zip
+           </a>
+          <a href="https://github.com/it4need/hsnr-web-pra/archive/master.tar.gz" class="button">
+            <small>Projekt-Download</small>
+            .tar.gz
+          </a>
+        </aside>
+      </div>
+    </div>
+    <script src="assets/javascripts/custom.js"></script>
+  </body>
+</html>
