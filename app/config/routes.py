@@ -5,7 +5,7 @@ class RouterConfig:
         {
             'name': 'home',
             'route': '/',
-            'method': 'HomeController@index',
+            'method': 'ReportController@index',
         },
         {
             'name': 'employees.index',

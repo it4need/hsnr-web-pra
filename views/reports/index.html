@@ -1,0 +1,74 @@
+<%namespace name="utilities" file="../utilities.html"/>
+% for project in data['projects']:
+    <div class="row">
+        <div class="box">
+            <div class="box__header">
+                <h5 class="box__title">Wöchentlicher Aufwand: ${project['label']} - ${project['project_id']}</h5>
+            </div>
+            <div class="box__content">
+                % if len(project['timeList']) > 0:
+                    <div class="overflow-container">
+                        <table class="table">
+                            <thead>
+                            <th class="name">Mitarbeiter</th>
+                            <th class="year">Jahr</th>
+                                % for i in range(1, 54):
+                                    <th>${i}</th>
+                                %endfor
+                            </thead>
+                            <tbody>
+                                % for employee_name, timeData in sorted(project['timeList'].items()):
+                                    % for year, yearsData in sorted(timeData.items()):
+                                        % if year != 'all':
+                                            <tr>
+                                                <td class="name">
+                                                    ${employee_name}
+                                                </td>
+                                                <td class="year">${year}</td>
+                                                % for week, weekSum in yearsData.items():
+                                                    <td>${weekSum}</td>
+                                                % endfor
+                                            </tr>
+                                        % endif
+                                    % endfor
+                                % endfor
+                            </tbody>
+                        </table>
+                    </div>
+                % else:
+                    <p>Es sind aktuell noch keine Zeiteinträge für dieses Projekt vorhanden.</p>
+                % endif
+                <h2 style="margin-top: 3rem;">Wöchentliche Zeiteinträge - Zusammenfassung</h2>
+                <table class="table">
+                    <thead>
+                    <th class="year">Jahr</th>
+                        <%  %>
+                        % for year, timeData in sorted(project['timeList_summary'].items()):
+                            % if year == 0:
+                                % for weeks in timeData:
+                                    <th>${weeks}</th>
+                                % endfor
+                            % endif %
+                        %endfor
+                    </thead>
+                    <tbody>
+                         % for year, timeData in sorted(project['timeList_summary'].items()):
+                            % if year != 0:
+                            <tr>
+                                <td>${year}</td>
+                                 % for year2, timeData2 in sorted(project['timeList_summary'].items()):
+                                    % if year2 == 0:
+                                        % for week2 in timeData2:
+                                            <td>${timeData[int(week2)]}</td>
+                                        % endfor
+                                    % endif %
+                                %endfor
+                            </tr>
+                            % endif
+                         % endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+%endfor
