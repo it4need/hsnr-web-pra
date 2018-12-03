@@ -6,12 +6,15 @@
             <div class="box__actions">
                 <a href="${data['_routes']['employees.create']}" class="btn btn--success"><i>&plus;</i>Neuen Mitarbeiter
                     erstellen</a>
+                <button class="btn btn--danger btn--small delete"><i
+                                                    class="fas fa-trash-alt inline"></i></button>
+                <button class="btn btn--small edit"><i class="fas fa-edit inline"></i></button>
             </div>
         </div>
         <div class="box__content">
             %if len(data['employees']) > 0:
                 <div class="overflow-container">
-                    <table class="table">
+                    <table class="table clickable" id="tableId">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -28,11 +31,11 @@
                                     <td>${employee['position']}</td>
                                     <td class="actions">
                                         <a href="${utilities.route(data['_routes']['employees.show'], {'id': employee['id']})}"
-                                           class="btn btn--small"><i class="fas fa-edit inline"></i></a>
+                                           class="btn btn--small edit"><i class="fas fa-edit inline"></i></a>
                                         <form class="inline-block"
                                               action="${utilities.route(data['_routes']['employees.delete'], {'id': employee['id']})}"
                                               method="post">
-                                            <button type="submit" class="btn btn--danger btn--small"><i
+                                            <button type="submit" class="btn btn--danger btn--small delete"><i
                                                     class="fas fa-trash-alt inline"></i></button>
                                         </form>
                                     </td>

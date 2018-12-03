@@ -89,11 +89,16 @@ p {
     border-bottom: 1px solid #eee;
     text-transform: uppercase;
     font-size: 1.4rem; }
+  .table.clickable tbody tr:hover {
+    cursor: pointer; }
+  .table tr.active {
+    background-color: #ededec; }
   .table tr:not(:last-child) {
     border-bottom: 1px solid #eee; }
   .table .actions {
     text-align: right;
-    min-width: 120px; }
+    min-width: 120px;
+    display: none; }
   .table .name {
     min-width: 120px; }
   .table .year {
