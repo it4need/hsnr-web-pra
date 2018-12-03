@@ -36,10 +36,9 @@
       <div class="inner clearfix">
         <section id="main-content">
 
-<h1 id="projektinformations-system-pis">Projektinformations-System (PIS)</h1>
-<h2 id="aufgabe-der-anwendung">Aufgabe der Anwendung</h2>
+<h1 id="aufgabe-der-anwendung">Aufgabe der Anwendung</h1>
 <p>Das Projektinformationssystem (nachfolgend mit PIS bezeichnet) ist eine Webapplikation, mit der ein Unternehmen relevante Informationen zu kundenspezifischen Projekten verwalten kann. Dazu gehören insbesondere:</p>
-<h2 id="übersicht-der-fachlichen-funktionen">Übersicht der fachlichen Funktionen</h2>
+<h1 id="übersicht-der-fachlichen-funktionen">Übersicht der fachlichen Funktionen</h1>
 <ul>
 <li>
 Verwaltung der Projektdaten
@@ -85,10 +84,10 @@ wöchentlicher Aufwand.
 </ul>
 </li>
 </ul>
-<h2 id="allgemeines-zum-applikationsaufbau">Allgemeines zum Applikationsaufbau</h2>
+<h1 id="allgemeines-zum-applikationsaufbau">Allgemeines zum Applikationsaufbau</h1>
 <p>Die Applikation wurde mit CherryPy in Python entwickelt. Es wird das Model-View-Controller (MVC) Entwurfsmuster zur Strukturierung der Applikation verwendet. Als Template-Engine wird mako verwendet. Die erzeugten Daten der Models werden in JSON-Dateien gespeichert.</p>
-<h2 id="grundsätzliches">Grundsätzliches</h2>
-<h3 id="order-struktur">Order-Struktur</h3>
+<h1 id="grundsätzliches">Grundsätzliches</h1>
+<h2 id="order-struktur">Order-Struktur</h2>
 <dl>
 <dt>/app</dt>
 <dd>enthält die gesamte Applikationslogik
@@ -124,26 +123,28 @@ wöchentlicher Aufwand.
 <dd>enthält allgemeine mako-Templates, welche unabhängig vom jeweiligen Template sind
 </dd>
 </dl>
-<h3 id="starten-des-cherrypy-servers">Starten des Cherrypy-Servers</h3>
+<h2 id="starten-des-cherrypy-servers">Starten des Cherrypy-Servers</h2>
 <p>Damit der Cherrypy-Applikationsserver gestartet werden kann, wird folgende Kommandozeile ausgeführt:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1">$ <span class="ex">python3</span> server.py</a></code></pre></div>
 <p>Die Applikation ist anschließend unter http://localhost:8080 erreichbar.</p>
-<h3 id="routing">Routing</h3>
+<h2 id="routing">Routing</h2>
 <p>Die Applikation nutzt einen eigenen Routing-Dispatcher, welcher explizites Routing ermöglicht. Dadurch kann das Projekt in einigen Schritten einfach in einen REST-Ansatz konvertiert werden. Weiterhin ist die Bennung der Funktionen unabhängig von der URL-Struktur und es können verschiedene Parameter übergeben werden. Die gesamte Konfiguration des Routings ist in der app/config/routes.py zu finden.</p>
-<h2 id="komponenten">Komponenten</h2>
-<h3 id="beschreibung-der-basiskomponenten">Beschreibung der Basiskomponenten</h3>
+<h1 id="komponenten">Komponenten</h1>
+<h2 id="beschreibung-der-basiskomponenten">Beschreibung der Basiskomponenten</h2>
 <p>In Allgemeinen besteht die gesamte Applikation aus vier Klassen: Controller.py, Model.py, Router.py, View.py. Diese Klassen sind für grundsätzliche applikationsunabhängige Aufgaben zuständig. Sie generalisieren also die Grund-Prozesse der Applikation. Im Einzelnen gehen wir auf diese kurz ein und beschreiben die Benutzung dieser.</p>
-<h4 id="controller.py">Controller.py</h4>
+<h3 id="controller.py">Controller.py</h3>
 <p>Die Basis-Klasse des Controllers beinhaltet allgemeine Funktionen, welche für alle abgeleiteten Controller sinnvoll sind. Der Controller arbeitet im MVC-Pattern hauptsächlich mit den Models zur Dateninteraktion und dem Views zur Präsentation zusammen. Der Controller nimmt vom Router die entsprechende Funktion entgegen und verarbeitet diese dann.</p>
-<h4 id="model.py">Model.py</h4>
-<h4 id="router.py">Router.py</h4>
-<h4 id="view.py">View.py</h4>
-<h3 id="programmierschnittstellen">Programmierschnittstellen</h3>
-<h4 id="controller.py-1">Controller.py</h4>
-<h5 id="programmierschnittstellen-1">Programmierschnittstellen</h5>
+<h3 id="model.py">Model.py</h3>
+<p>Die Basis-Klasse des Models liefert generalisierte Möglichkeiten zur Datenmanipulation und -interaktion, welche durch das abgeleitete Model durchgeführt werden können. Das Model wird hauptsächlich mit den Controllern interagieren.</p>
+<h3 id="router.py">Router.py</h3>
+<p>Der Router ist für das Routing der Applikation zuständig. Er kümmert sich um die Zuordnung der jeweiligen URI-Endpunkte mit den dafür verantwortlichen Controllern. Er kommuniziert ausschließlich mit den Controllern.</p>
+<h3 id="view.py">View.py</h3>
+<p>Das View ist dafür zuständig, dass das jeweilige Template zur Präsentation aufbereitet wird und anschließend durch den TemplateParser gerendet wird. Das View steht lediglich in Verbindung mit den Controllern.</p>
+<h2 id="programmierschnittstellen">Programmierschnittstellen</h2>
+<h3 id="controller.py-1">Controller.py</h3>
 <ul>
 <li>
-<code>redirect(string url, dictonary params = {}, dictonary notificationData = {}) : null</code>
+<code>redirect(string url, dictionary params = {}, dictionary notificationData = {}) : null</code>
 <ul>
 <li>
 <dl>
@@ -162,7 +163,7 @@ wöchentlicher Aufwand.
 </ul>
 </li>
 <li>
-<code>route(string route, dictonary params = {}) : string</code>
+<code>route(string route, dictionary params = {}) : string</code>
 <ul>
 <li>
 <dl>
@@ -181,8 +182,138 @@ wöchentlicher Aufwand.
 </ul>
 </li>
 </ul>
-<h4 id="model.py-1">Model.py</h4>
-<h4 id="router.py-1">Router.py</h4>
+<h3 id="model.py-1">Model.py</h3>
+<ul>
+<li>
+<code>create(dictionary values) : integer|boolean</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>erstellt einen Eintrag in der zum Model zugehörigen JSON-Datei mit den Argumenten <code>values</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>int</code>, falls Eintrag mit der ID des übergebenen Eintrags erfolgreich persistiert werden konnte, ansonsten <code>false</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>find(int id) : list|boolean</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>liefert den zur <code>id</code> zugehörigen Dateneintrag
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>list</code> mit untergeordneten <code>dictionary</code>, falls Eintrag erfolgreich gefunden werden konnte, ansonsten <code>false</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>findOrFail(int id) : list</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>siehe <code>find()</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>list</code> mit untergeordneten <code>dictionary</code>: falls Eintrag erfolgreich gefunden werden konnte
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Werfende Exceptions</dt>
+<dd><code>Exception</code>, falls der Eintrag nicht erfolgreich gefunden werden konnte
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>all(dictionary where = None) : list</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>liefert alle Einträge zurück, welche mit <code>where</code> als Bedingung vereinbar sind
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>list</code>: alle Einträge, welche mit <code>where</code> als Bedingung vereinbar sind
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>update(integer id, dictionary values) : boolean</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>Aktualisiert den Eintrag mit der <code>id</code> mit den Werten in <code>values</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>true</code>: falls der Eintrag aktualisiert werden konnten, ansonsten <code>false</code>
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Werfende Exceptions</dt>
+<dd><code>Exception</code>: falls <code>values</code> den Key <code>id</code> beinhaltet
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<code>delete(integer id) : boolean</code>
+<ul>
+<li>
+<dl>
+<dt>Beschreibung</dt>
+<dd>Löscht den Eintrag mit der <code>id</code> permanent
+</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>Rückgabewerte</dt>
+<dd><code>true</code>: falls der Eintrag gelöscht werden konnte, ansonsten <code>false</code>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="router.py-1">Router.py</h3>
 <ul>
 <li>
 <code>getAllRoutes(list routerConfig) : RoutesDispatcher</code>
@@ -204,7 +335,7 @@ wöchentlicher Aufwand.
 </ul>
 </li>
 </ul>
-<h4 id="view.py-1">View.py</h4>
+<h3 id="view.py-1">View.py</h3>
 <ul>
 <li>
 <code>__init__(string view_search_folder) : null</code>
@@ -226,7 +357,7 @@ wöchentlicher Aufwand.
 </ul>
 </li>
 <li>
-<code>load(string template, dictonary data_opl={}) : string</code>
+<code>load(string template, dictionary data_opl={}) : string</code>
 <ul>
 <li>
 <dl>
